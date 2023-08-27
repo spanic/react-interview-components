@@ -1,11 +1,11 @@
 {
   "name": "react-interview-components",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "prop-types": "^15.8.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -17,9 +17,9 @@
     "fix:js": "run-s 'lint:js --fix'",
     "lint:style": "stylelint ./src/**/*.css",
     "fix:style": "run-s 'lint:style --fix'",
-    "start:docs": "start-storybook -p 6006",
-    "build:docs": "build-storybook",
-    "prepare": "node ./prepare.js && husky install"
+    "start:docs": "storybook dev -p 6006",
+    "build:docs": "storybook build",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -52,14 +52,14 @@
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-commonjs": "^24.0.1",
     "@rollup/plugin-node-resolve": "^15.0.1",
-    "@storybook/addon-actions": "^6.5.16",
-    "@storybook/addon-essentials": "^6.5.16",
-    "@storybook/addon-links": "^6.5.16",
-    "@storybook/builder-webpack5": "^6.5.16",
-    "@storybook/manager-webpack5": "^6.5.16",
-    "@storybook/node-logger": "^6.5.16",
-    "@storybook/preset-create-react-app": "^4.1.2",
-    "@storybook/react": "^6.5.16",
+    "@storybook/addon-actions": "^7.3.2",
+    "@storybook/addon-essentials": "^7.3.2",
+    "@storybook/addon-links": "^7.3.2",
+    "@storybook/addon-mdx-gfm": "^7.3.2",
+    "@storybook/node-logger": "^7.3.2",
+    "@storybook/preset-create-react-app": "^7.3.2",
+    "@storybook/react": "^7.3.2",
+    "@storybook/react-webpack5": "^7.3.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
@@ -92,9 +92,14 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-terser": "^7.0.2",
+    "storybook": "^7.3.2",
     "stylelint": "^14.16.1",
     "stylelint-config-prettier": "^9.0.5",
     "stylelint-config-standard": "^29.0.0",
     "stylelint-order": "^6.0.3"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   }
 }

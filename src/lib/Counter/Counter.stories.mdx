@@ -1,12 +1,13 @@
-import { Meta, Props, Canvas, Story } from '@storybook/addon-docs';
-import { Counter } from './Counter';
+import {Meta, Props, Canvas, Story, ArgsTable} from '@storybook/addon-docs';
+import {Counter} from './Counter.js';
 
 <Meta title="Example/Counter" component={Counter} />
 
 # Example Component Demo
 
 ## Counter props
-<Props of={Counter} />
+
+<ArgsTable of={Counter} />
 
 ## Description
 
@@ -15,7 +16,5 @@ import { Counter } from './Counter';
 ## Demo
 
 <Canvas>
-  <Story name="Example Counter">
-    {(args) => <Counter {...args} />}
-  </Story>
+  <Story name="Example Counter">{args => <Counter {...args} />}</Story>
 </Canvas>
