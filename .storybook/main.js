@@ -1,6 +1,7 @@
 module.exports = {
   stories: [
     '../src/**/*.stories.mdx',
+    '../src/**/*.mdx',
     '../docs/*.stories.mdx',
     '../src/**/*.stories.@(js|jsx|ts|tsx)',
   ],
@@ -15,11 +16,15 @@ module.exports = {
   staticDirs: ['../public'],
 
   framework: {
-    name: '@storybook/react-webpack5',
+    name: '@storybook/react-vite',
     options: {},
   },
 
+  core: {
+    builder: '@storybook/builder-vite',
+  },
+
   features: {
-    autoDocs: false,
+    autoDocs: true,
   },
 };
