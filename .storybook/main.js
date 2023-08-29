@@ -1,4 +1,6 @@
-module.exports = {
+import remarkGfm from 'remark-gfm';
+
+const config = {
   stories: [
     '../src/**/*.stories.mdx',
     '../src/**/*.mdx',
@@ -8,9 +10,23 @@ module.exports = {
 
   addons: [
     '@storybook/addon-links',
-    '@storybook/addon-essentials',
+    {
+      name: '@storybook/addon-essentials',
+      options: {
+        docs: false,
+      },
+    },
     '@storybook/preset-create-react-app',
-    '@storybook/addon-mdx-gfm',
+    {
+      name: '@storybook/addon-docs',
+      options: {
+        mdxPluginOptions: {
+          mdxCompileOptions: {
+            remarkPlugins: [remarkGfm],
+          },
+        },
+      },
+    },
   ],
 
   staticDirs: ['../public'],
@@ -20,11 +36,9 @@ module.exports = {
     options: {},
   },
 
-  core: {
-    builder: '@storybook/builder-vite',
-  },
-
   features: {
     autoDocs: true,
   },
 };
+
+export default config;
