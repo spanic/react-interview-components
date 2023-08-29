@@ -1,23 +1,16 @@
-import { Meta } from '@storybook/addon-docs';
+import {Meta} from '@storybook/blocks';
 
-<Meta
-  parameters={{
-    viewMode: 'docs',
-    previewTabs: {
-      canvas: { hidden: true }
-    },
-  }}
-  title="Docs/Linters" />
+<Meta title="Docs/Linters" />
 
 # Code quality tools
 
 Since you are creating library to share with the community, code quality matters a lot. Template provides eslint and stylelint configurations to improve and maintain your code. Code linting is performed inside IDE and when you commit your code.
 
-Thus every time you commit something [husky](https://github.com/typicode/husky) will run [lint-staged](https://github.com/okonet/lint-staged) with `eslint --fix` command  on staged files, preventing you from committing badly formatted code. You can change or disable this behavior inside `.linstagedrc` config file. Before each push tests will run in the same manner.
+Thus every time you commit something [husky](https://github.com/typicode/husky) will run [lint-staged](https://github.com/okonet/lint-staged) with `eslint --fix` command on staged files, preventing you from committing badly formatted code. You can change or disable this behavior inside `.linstagedrc` config file. Before each push tests will run in the same manner.
 
 ### Caveats
 
-- If pre-commit hooks not work (e. g. your code is not linted after commit), run ``yarn add husky`` in your project folder.
+- If pre-commit hooks not work (e. g. your code is not linted after commit), run `yarn add husky` in your project folder.
 
 ## eslint
 
@@ -110,4 +103,5 @@ Template includes [stylelint](https://stylelint.io/), to check CSS/SASS/LESS fil
 // Limit selector complexity for readablity purposes
 "selector-max-compound-selectors": 5
 ```
+
 Stylelint errors don't prevent build of application in development mode.

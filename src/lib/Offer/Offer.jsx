@@ -11,7 +11,6 @@ const Offer = memo(
     data: {id, title, description, price, selected} = {},
     onSelect,
     onRemove,
-    test = 'Hello',
   }) => (
     <Card title={title} extra={<Price>{`${price}$ / month`}</Price>}>
       <Paragraph>{description}</Paragraph>
@@ -49,7 +48,6 @@ Offer.propTypes = {
   }).isRequired,
   onSelect: PropTypes.func,
   onRemove: PropTypes.func,
-  test: PropTypes.string.isRequired,
 };
 
 Offer.defaultProps = {

@@ -1,16 +1,8 @@
-import { Meta } from '@storybook/addon-docs';
+import {Meta} from '@storybook/blocks';
 
-<Meta
-  parameters={{
-    viewMode: 'docs',
-    previewTabs: {
-      canvas: { hidden: true }
-    },
-  }}
-  title="Docs/Style options" />
+<Meta title="Docs/Style options" />
 
 # Style options
-
 
 ## CSS modules
 
@@ -20,9 +12,7 @@ Template uses vanilla CSS with `autoprefixer` enabled. To avoid classname collis
 import React from 'react';
 import classes from './Component.module.css';
 
-const Component = () => (
-  <div className={classes.wrapper}>Component</div>
-)
+const Component = () => <div className={classes.wrapper}>Component</div>;
 ```
 
 ## Add SASS/SCSS
@@ -39,22 +29,20 @@ yarn add node-sass  --dev
 
 ```json
 {
-  "*.js": [
-    "eslint --fix"
-  ],
-  "*.scss": [
-    "stylelint --fix"
-  ]
+  "*.js": ["eslint --fix"],
+  "*.scss": ["stylelint --fix"]
 }
 ```
+
 3. Change `rollup.config.js` to support `scss` files:
+
 ```js
 postcss({
   extract: process.env.REACT_APP_PKG_STYLE || pkg.style,
   inline: false,
   plugins: postcssPlugins,
-  extensions: ['scss'] // <=== here
-})
+  extensions: ['scss'], // <=== here
+});
 ```
 
 4. Import `scss` files straight into Component.
@@ -63,9 +51,7 @@ postcss({
 import React from 'react';
 import classes from './Component.module.scss'; // note the changed extension
 
-const Component = () => (
-  <div className={classes.wrapper}>Component</div>
-)
+const Component = () => <div className={classes.wrapper}>Component</div>;
 ```
 
 You can see all changes required to enable SASS/SCSS in [corresponding PR](https://github.com/morewings/cra-template-npm-library/pull/11).
@@ -75,19 +61,21 @@ You can see all changes required to enable SASS/SCSS in [corresponding PR](https
 `PostCSS` support can be added using **file watcher**.
 
 1. Install `postcss-cli` and related packages:
+
 ```shell script
 yarn add --dev postcss-nested postcss-cli postcss-preset-env npm-run-all
 ```
+
 2. Modify package scripts to add file watcher:
 
 ```json
 {
-    "build:style": "postcss src/**/*.pcss --dir src --base src --ext css",
-    "watch:style": "yarn build:style -w",
-    "start": "npm-run-all -p watch:style start:js",
-    "start:js": "react-scripts start",
-    "build:js": "react-scripts build",
-    "build": "npm-run-all build:style build:js"
+  "build:style": "postcss src/**/*.pcss --dir src --base src --ext css",
+  "watch:style": "yarn build:style -w",
+  "start": "npm-run-all -p watch:style start:js",
+  "start:js": "react-scripts start",
+  "build:js": "react-scripts build",
+  "build": "npm-run-all build:style build:js"
 }
 ```
 
@@ -101,11 +89,12 @@ module.exports = {
     require('postcss-nested'), // handle nested selectors, like LESS or SASS
     require('postcss-preset-env')({
       browsers: pkg.browserslist.production, // use browsers list from production mode
-      stage: 1
-    })
-  ]
+      stage: 1,
+    }),
+  ],
 };
 ```
+
 4. Add rule to `.gitignore` and `.stylelintrc` to ignore all css files, since we are generating them.
 
 `.gitignore`
@@ -125,16 +114,11 @@ module.exports = {
 
 5. Change `.lintstagedrc` to lint `pcss` files instead of `css`.
 
- ```json
- {
-   "*.js": [
-     "eslint --fix"
-   ],
-   "*.pcss": [
-     "stylelint --fix"
-   ]
- }
+```json
+{
+  "*.js": ["eslint --fix"],
+  "*.pcss": ["stylelint --fix"]
+}
 ```
-
 
 You can see all changes required to enable PostCSS in [corresponding PR](https://github.com/morewings/cra-template-npm-library/pull/12).

@@ -1,10 +1,11 @@
 import remarkGfm from 'remark-gfm';
 
+/** @type { import('@storybook/react-vite').StorybookConfig } */
 const config = {
   stories: [
     '../src/**/*.stories.mdx',
     '../src/**/*.mdx',
-    '../docs/*.stories.mdx',
+    '../docs/*.mdx',
     '../src/**/*.stories.@(js|jsx|ts|tsx)',
   ],
 
@@ -37,7 +38,7 @@ const config = {
   },
 
   features: {
-    autoDocs: true,
+    autoDocs: false,
   },
 };
 
