@@ -1,0 +1,20 @@
+# Workflow name
+name: 'Publish to Chromatic'
+
+on: push
+
+jobs:
+  chromatic-deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          # Required to retrieve git history
+          # See https://www.chromatic.com/docs/github-actions#support-for-actions-checkout-v2-and-above
+          fetch-depth: 0
+      - run: npm i
+      - uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          buildScriptName: 'build:docs'
