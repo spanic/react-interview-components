@@ -1,4 +1,4 @@
-import {Meta, Canvas} from '@storybook/blocks';
+import {Meta, Canvas, ArgTypes} from '@storybook/blocks';
 import * as OfferStories from './Offer.stories';
 
 <Meta of={OfferStories} />
@@ -7,7 +7,11 @@ import * as OfferStories from './Offer.stories';
 
 ## Description
 
-`Offer` component is a card that displays Offer data: `title`, `description` and `price`. User can add or remove the Offer from the order by pressing the corresponding button on the card.
+`Offer` component card displays Offer data: `title`, `description` and `price`. User can add or remove Offer from the order by pressing the corresponding button on the card.
+
+## Props
+
+<ArgTypes of={OfferStories} />
 
 ## Demo
 

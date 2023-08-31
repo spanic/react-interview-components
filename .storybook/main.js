@@ -1,4 +1,6 @@
 import remarkGfm from 'remark-gfm';
+import {mergeConfig} from 'vite';
+import jsconfigPaths from 'vite-jsconfig-paths';
 
 /** @type { import('@storybook/react-vite').StorybookConfig } */
 const config = {
@@ -33,11 +35,17 @@ const config = {
   staticDirs: ['../public'],
 
   framework: {
-    name: '@storybook/react-webpack5',
+    name: '@storybook/react-vite',
   },
 
   features: {
     autoDocs: false,
+  },
+
+  async viteFinal(config) {
+    return mergeConfig(config, {
+      plugins: [jsconfigPaths()],
+    });
   },
 };
 

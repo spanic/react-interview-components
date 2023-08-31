@@ -14,7 +14,19 @@ const meta = {
       </Row>
     ),
   ],
-  argTypes: {onSelect: {action: 'onSelect'}, onRemove: {action: 'onRemove'}},
+  argTypes: {
+    data: {
+      description: 'Offer data',
+    },
+    onSelect: {
+      description:
+        'Callback function invoked when user clicks on "➕ Add" button, passes chosen Offer\'s `id`',
+    },
+    onRemove: {
+      description:
+        'Callback function invoked when user clicks on "➖ Remove" button, passes removed Offer\'s `id`',
+    },
+  },
 };
 
 export default meta;
