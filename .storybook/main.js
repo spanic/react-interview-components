@@ -32,7 +32,7 @@ const config = {
     },
   ],
 
-  staticDirs: ['../public'],
+  staticDirs: ['../public/assets'],
 
   framework: {
     name: '@storybook/react-vite',
@@ -45,6 +45,7 @@ const config = {
   async viteFinal(config) {
     return mergeConfig(config, {
       plugins: [jsconfigPaths()],
+      publicDir: false,
     });
   },
 };
