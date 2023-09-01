@@ -1,6 +1,7 @@
 {
   "name": "react-interview-components",
   "description": "Set of React components used in @spanic's interview projects",
+  "author": "Andrei Sadulin <sadulin2011@yandex.ru>",
   "version": "1.0.0",
   "private": false,
   "repository": {
@@ -116,5 +117,8 @@
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
-  }
+  },
+  "files": [
+    "lib"
+  ]
 }
