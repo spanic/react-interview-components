@@ -1,12 +1,12 @@
 {
-  "name": "react-interview-components",
+  "name": "@spanic/react-interview-components",
   "description": "Set of React components used in @spanic's interview projects",
   "author": "Andrei Sadulin <sadulin2011@yandex.ru>",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/spanic/react-interview-components",
+    "url": "git+https://github.com/spanic/react-interview-components.git",
     "directory": "/"
   },
   "homepage": "https://master--64efbbdd17b6d0944f4367db.chromatic.com",
@@ -120,5 +120,13 @@
   },
   "files": [
     "lib"
-  ]
+  ],
+  "bugs": {
+    "url": "https://github.com/spanic/react-interview-components/issues"
+  },
+  "directories": {
+    "doc": "docs",
+    "lib": "lib"
+  },
+  "license": "ISC"
 }
