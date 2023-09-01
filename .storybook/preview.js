@@ -9,6 +9,8 @@ const preview = {
       },
     },
     options: {
+      showPanel: true,
+      isToolshown: true,
       storySort: {
         order: [
           'Docs',
@@ -22,7 +24,7 @@ const preview = {
             'Style options',
             'Add documentation',
           ],
-          'Example',
+          'Components',
         ],
       },
     },

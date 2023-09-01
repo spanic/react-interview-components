@@ -2,9 +2,9 @@ import React from 'react';
 import {Col, Row} from 'antd';
 import {Offer} from './Offer';
 
-const meta = {
+export default {
   component: Offer,
-  title: 'Example/Offer',
+  title: 'Components/Offer',
   decorators: [
     Story => (
       <Row>
@@ -18,6 +18,9 @@ const meta = {
     data: {
       description: 'Offer data',
     },
+    selected: {
+      description: 'Flag that marks Offer as selected',
+    },
     onSelect: {
       description:
         'Callback function invoked when user clicks on "➕ Add" button, passes chosen Offer\'s `id`',
@@ -29,32 +32,32 @@ const meta = {
   },
 };
 
-export default meta;
+const Template = args => <Offer {...args} />;
 
-export const Default = {
-  args: {
-    data: {
-      id: 'amazon_prime',
-      title: 'Amazon Prime',
-      description:
-        'Enjoy unlimited delivery, award-winning video, ad-free music and more',
-      price: 9.99,
-    },
+/**
+ * Defining Stories for the Order component
+ */
+
+export const Default = Template.bind({});
+Default.args = {
+  data: {
+    id: 'amazon_prime',
+    title: 'Amazon Prime',
+    description:
+      'Enjoy unlimited delivery, award-winning video, ad-free music and more',
+    price: 9.99,
   },
+  selected: false,
 };
 
-export const Selected = {
-  args: {
-    data: {
-      ...Default.args.data,
-      selected: true,
-    },
-  },
-};
-
-export const NoData = {
+export const NoData = Template.bind({});
+NoData.parameters = {
+  options: {showPanel: false},
   argTypes: {
     data: {
+      control: false,
+    },
+    selected: {
       control: false,
     },
   },

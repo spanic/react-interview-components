@@ -1,11 +1,11 @@
 import remarkGfm from 'remark-gfm';
 import {mergeConfig} from 'vite';
 import jsconfigPaths from 'vite-jsconfig-paths';
+import svgr from 'vite-plugin-svgr';
 
 /** @type { import('@storybook/react-vite').StorybookConfig } */
 const config = {
   stories: [
-    '../src/**/*.stories.mdx',
     '../src/**/*.mdx',
     '../docs/*.mdx',
     '../src/**/*.stories.@(js|jsx|ts|tsx)',
@@ -44,7 +44,7 @@ const config = {
 
   async viteFinal(config) {
     return mergeConfig(config, {
-      plugins: [jsconfigPaths()],
+      plugins: [jsconfigPaths(), svgr()],
       publicDir: false,
     });
   },

@@ -1,9 +1,17 @@
 import React from 'react';
-import {Counter} from 'lib';
+import {Offer} from 'lib';
 import classes from './App.module.css';
 
 export const App = () => (
   <div className={classes.container}>
-    <Counter initialValue={0} />
+    <Offer
+      data={{
+        id: 'amazon_prime',
+        title: 'Amazon Prime',
+        description:
+          'Enjoy unlimited delivery, award-winning video, ad-free music and more',
+        price: 9.99,
+      }}
+    />
   </div>
 );

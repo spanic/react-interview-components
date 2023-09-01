@@ -1,43 +1,48 @@
-import {MinusOutlined, PlusOutlined} from '@ant-design/icons';
-import {Button, Card, Empty, Typography} from 'antd';
-import PropTypes from 'prop-types';
 import React, {memo} from 'react';
+import PropTypes from 'prop-types';
+import {MinusOutlined, PlusOutlined} from '@ant-design/icons';
+import {Button, Card, Empty, Space, Typography} from 'antd';
 import {styled} from 'styled-components';
 import {isEmpty} from 'utils/object.utils';
+import {ReactComponent as EmptyIcon} from './empty.svg';
 
 const {Paragraph, Text} = Typography;
 
-const Offer = memo(({data, onSelect, onRemove}) => {
+const Offer = memo(({data, selected, onSelect, onRemove}) => {
   if (isEmpty(data)) {
     return (
       <Card>
-        <Empty />
+        <Empty description={"It's empty"} image={<EmptyIcon />} />
       </Card>
     );
   }
 
-  const {id, title, description, price, selected} = data;
+  const {id, title, description, price} = data;
 
   return (
-    <Card title={title} extra={<Price>{`${price}$ / month`}</Price>}>
-      <Paragraph>{description}</Paragraph>
-      {selected ? (
-        <Button
-          shape="round"
-          icon={<MinusOutlined />}
-          onClick={() => onRemove?.(id)}
-          danger>
-          Remove
-        </Button>
-      ) : (
-        <Button
-          type="primary"
-          shape="round"
-          icon={<PlusOutlined />}
-          onClick={() => onSelect?.(id)}>
-          Add
-        </Button>
-      )}
+    <Card
+      title={title}
+      extra={(price && <Price>{`${price}$ / month`}</Price>) || null}>
+      {description && <Paragraph>{description}</Paragraph>}
+      <Space direction="vertical" align="end" style={{display: 'flex'}}>
+        {selected ? (
+          <Button
+            shape="round"
+            icon={<MinusOutlined />}
+            onClick={() => onRemove?.(id)}
+            danger>
+            Remove
+          </Button>
+        ) : (
+          <Button
+            type="primary"
+            shape="round"
+            icon={<PlusOutlined />}
+            onClick={() => onSelect?.(id)}>
+            Add
+          </Button>
+        )}
+      </Space>
     </Card>
   );
 });
@@ -58,13 +63,14 @@ Offer.propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-    selected: PropTypes.bool,
   }).isRequired,
+  selected: PropTypes.bool,
   onSelect: PropTypes.func,
   onRemove: PropTypes.func,
 };
 
 Offer.defaultProps = {
+  selected: false,
   onSelect: undefined,
   onRemove: undefined,
 };
