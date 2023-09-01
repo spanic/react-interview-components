@@ -5,8 +5,8 @@ import styled from 'styled-components';
 
 const {Footer: AntdFooter} = Layout;
 
-export const Total = ({value = 0}) => (
-  <Footer>
+export const Total = ({value = 0, className}) => (
+  <Footer className={className}>
     <div>
       Total:
       <Statistic value={value} suffix="$ per month" />
@@ -31,8 +31,10 @@ const Footer = styled(AntdFooter)`
 
 Total.propTypes = {
   value: PropTypes.number,
+  className: PropTypes.string,
 };
 
 Total.defaultProps = {
   value: 0,
+  className: undefined,
 };

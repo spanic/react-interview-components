@@ -7,11 +7,15 @@ export default {
     value: {
       description: 'Price to be displayed',
     },
+    className: {if: {truthy: false}},
   },
 };
 
 export const Default = {
   args: {
     value: 17,
+  },
+  parameters: {
+    controls: {exclude: ['className']},
   },
 };
