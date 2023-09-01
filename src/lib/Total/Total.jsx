@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 const {Footer: AntdFooter} = Layout;
 
-const Total = ({value = 0}) => (
+export const Total = ({value = 0}) => (
   <Footer>
     <div>
       Total:
@@ -36,5 +36,3 @@ Total.propTypes = {
 Total.defaultProps = {
   value: 0,
 };
-
-export {Total};

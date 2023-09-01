@@ -1,3 +1,4 @@
+import svgr from '@svgr/rollup';
 import babel from '@rollup/plugin-babel';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
@@ -47,8 +48,9 @@ const config = outputs.map(({file, format}) => ({
       include: {},
       paths: ['src'],
       external: Object.keys(pkg.dependencies),
-      extensions: ['.js', '.json', '.html'],
+      extensions: ['.js', '.jsx', '.json', '.html'],
     }),
+    svgr({exportType: 'named'}),
     postcss({
       extract: process.env.REACT_APP_PKG_STYLE || pkg.style,
       inline: false,

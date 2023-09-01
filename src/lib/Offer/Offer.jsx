@@ -8,7 +8,7 @@ import {ReactComponent as EmptyIcon} from './empty.svg';
 
 const {Paragraph, Text} = Typography;
 
-const Offer = memo(({data, selected, onSelect, onRemove}) => {
+export const Offer = memo(({data, selected, onSelect, onRemove}) => {
   if (isEmpty(data)) {
     return (
       <Card>
@@ -74,5 +74,3 @@ Offer.defaultProps = {
   onSelect: undefined,
   onRemove: undefined,
 };
-
-export {Offer};
