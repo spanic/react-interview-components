@@ -1,27 +1,10 @@
-[![Node.js CI](https://github.com/morewings/cra-template-npm-library/actions/workflows/merge-jobs.yml/badge.svg)](https://github.com/morewings/cra-template-npm-library/actions/workflows/merge-jobs.yml)
-[![npm version](https://badge.fury.io/js/cra-template-npm-library.svg)](https://www.npmjs.com/package/cra-template-npm-library)
-[![npm](https://img.shields.io/npm/dm/cra-template-npm-library)](http://npm-stats.org/#/cra-template-npm-library)
+# React interview components
 
-# NPM library Create React App template
+💅🏻 Based on [cra-template-npm-library](https://morewings.github.io/cra-template-npm-library), upgraded Storybook to the latest v. 7.4.0.
 
-[Create React App](https://github.com/facebook/create-react-app) (CRA) template to build and publish NPM libraries with **rollup**, **eslint** and **stylelint** configurations. See [full documentation](https://morewings.github.io/cra-template-npm-library).
+### [➡️ Showcases ⬅️](https://master--64efbbdd17b6d0944f4367db.chromatic.com/?path=/docs/components-offer--docs)
 
-## Usage
-
-```shell script
-npx create-react-app %PROJECT_NAME% --template npm-library
-``` 
-Or
-```shell script
-yarn create react-app %PROJECT_NAME% --template npm-library
-```
-
-Then
-
-```shell script
-cd %PROJECT_NAME%
-yarn start
-```
+> see _DOCS_ section for usage guide
 
 ## Features
 
@@ -36,6 +19,8 @@ yarn start
 - [Storybook](https://storybook.js.org/) for documentation and demo.
 - And [much more](https://cra-template-npm-library.netlify.com/).
 
-## Contributors
+## Authors and contributors
 
-@morewings, @sky0matic
+@spanic, special thanks to @morewings, @sky0matic
+
+_Made with ❤️ in Almaty 🇰🇿 in August, 2023_
