@@ -1,8 +1,8 @@
 # React interview components
 
-💅🏻 Based on [cra-template-npm-library](https://morewings.github.io/cra-template-npm-library), upgraded Storybook to the latest v. 7.4.0.
+<a href="https://www.npmjs.com/package/@spanic/react-interview-components" target="_blank" title="Open @spanic/react-interview-components NPM package">![npm (scoped)](https://img.shields.io/npm/v/%40spanic/react-interview-components?style=for-the-badge&logo=npm&logoColor=white)</a> <a href="https://master--64efbbdd17b6d0944f4367db.chromatic.com/?path=/docs/components-offer--docs" target="_blank" title="Open Chromatic Storybook showcases">![Static Badge](https://img.shields.io/badge/Showcases-red?style=for-the-badge&logo=chromatic&logoColor=white&label=open)</a>
 
-### [➡️ Showcases ⬅️](https://master--64efbbdd17b6d0944f4367db.chromatic.com/?path=/docs/components-offer--docs)
+💅🏻 Based on [cra-template-npm-library](https://morewings.github.io/cra-template-npm-library), upgraded Storybook to the latest v. 7.4.0.
 
 > see _DOCS_ section for usage guide
 
