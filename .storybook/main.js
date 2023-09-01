@@ -39,7 +39,7 @@ const config = {
   },
 
   features: {
-    autoDocs: false,
+    autoDocs: true,
   },
 
   async viteFinal(config) {
