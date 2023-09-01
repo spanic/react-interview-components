@@ -1,3 +1,5 @@
+/* eslint-disable fp/no-mutation */
+
 import React from 'react';
 import {Col, Row} from 'antd';
 import {Offer} from './Offer';
@@ -53,12 +55,16 @@ Default.args = {
 export const NoData = Template.bind({});
 NoData.parameters = {
   options: {showPanel: false},
-  argTypes: {
-    data: {
-      control: false,
-    },
-    selected: {
-      control: false,
-    },
-  },
+  controls: {exclude: /^.*/},
 };
+
+/**
+ * We can also set argTypes per story!
+ *
+ * NoData.argTypes = {
+ *   selected: {
+ *     control: false,
+ *   },
+ * },
+ *
+ */
