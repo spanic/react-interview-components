@@ -1,47 +1,55 @@
-import React, {memo} from 'react';
+import React, {memo, useCallback, useMemo} from 'react';
 import PropTypes from 'prop-types';
 import {MinusOutlined, PlusOutlined} from '@ant-design/icons';
-import {Button, Card, Empty, Space, Typography} from 'antd';
+import {Button, Card, Skeleton, Space, Typography} from 'antd';
 import {styled} from 'styled-components';
-import {isEmpty} from 'utils/object.utils';
-import {ReactComponent as EmptyIcon} from './empty.svg';
+import {isNullOrUndefined} from 'utils/object.utils';
+import {withSkeleton} from 'utils/withSkeleton';
 
 const {Paragraph, Text} = Typography;
 
 export const Offer = memo(({data, selected, onSelect, onRemove}) => {
-  if (isEmpty(data)) {
-    return (
-      <Card>
-        <Empty description={"It's empty"} image={<EmptyIcon />} />
-      </Card>
-    );
-  }
+  const {id, title, description, price} = data || {};
 
-  const {id, title, description, price} = data;
+  const DescriptionWithSkeleton = useMemo(
+    () =>
+      withSkeleton(Paragraph, isNullOrUndefined(description), {
+        title: false,
+        paragraph: {rows: 3},
+      }),
+    [description]
+  );
+
+  const PriceWithSkeleton = useMemo(
+    () =>
+      withSkeleton(Price, isNullOrUndefined(price), {
+        title: false,
+        paragraph: {rows: 1, width: 100},
+        style: {marginLeft: 20},
+      }),
+    [price]
+  );
+
+  const ActionButton = useCallback(() => {
+    const props = {
+      shape: 'round',
+      icon: selected ? <MinusOutlined /> : <PlusOutlined />,
+      onClick: selected ? () => onRemove?.(id) : () => onSelect?.(id),
+      children: selected ? 'Remove' : 'Add',
+      disabled: isNullOrUndefined(id),
+      ...(selected ? null : {type: 'primary'}),
+      ...(selected && {danger: true}),
+    };
+    return <Button {...props} />;
+  }, [selected, id, onRemove, onSelect]);
 
   return (
     <Card
-      title={title}
-      extra={(price && <Price>{`${price}$ / month`}</Price>) || null}>
-      {description && <Paragraph>{description}</Paragraph>}
+      title={title || <Skeleton title paragraph={false} />}
+      extra={<PriceWithSkeleton>{`${price}$ / month`}</PriceWithSkeleton>}>
+      <DescriptionWithSkeleton>{description}</DescriptionWithSkeleton>
       <Space direction="vertical" align="end" style={{display: 'flex'}}>
-        {selected ? (
-          <Button
-            shape="round"
-            icon={<MinusOutlined />}
-            onClick={() => onRemove?.(id)}
-            danger>
-            Remove
-          </Button>
-        ) : (
-          <Button
-            type="primary"
-            shape="round"
-            icon={<PlusOutlined />}
-            onClick={() => onSelect?.(id)}>
-            Add
-          </Button>
-        )}
+        <ActionButton />
       </Space>
     </Card>
   );
