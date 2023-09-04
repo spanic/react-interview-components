@@ -1,5 +1,5 @@
 import React from 'react';
-import {Offer} from 'lib';
+import {OfferTypescript as Offer} from 'lib';
 import classes from './App.module.css';
 
 export const App = () => (
