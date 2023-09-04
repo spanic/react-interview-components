@@ -23,7 +23,7 @@ exports[`environment > App renders without crashing 1`] = `
             class="ant-card-extra"
           >
             <span
-              class="ant-typography sc-bcPKhP gZUPPj css-dev-only-do-not-override-17a39f8"
+              class="ant-typography sc-dkjKgF bSAFOq css-dev-only-do-not-override-17a39f8"
             >
               9.99$ / month
             </span>

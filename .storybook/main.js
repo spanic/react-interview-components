@@ -1,6 +1,6 @@
 import remarkGfm from 'remark-gfm';
 import {mergeConfig} from 'vite';
-import jsconfigPaths from 'vite-jsconfig-paths';
+import tsconfigPaths from 'vite-tsconfig-paths';
 import svgr from 'vite-plugin-svgr';
 
 /** @type { import('@storybook/react-vite').StorybookConfig } */
@@ -44,7 +44,8 @@ const config = {
 
   async viteFinal(config) {
     return mergeConfig(config, {
-      plugins: [jsconfigPaths(), svgr()],
+      plugins: [tsconfigPaths(), svgr()],
+      base: '/src',
       publicDir: false,
     });
   },

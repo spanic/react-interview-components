@@ -8,7 +8,7 @@ import {withSkeleton} from 'utils/withSkeleton';
 const {Paragraph, Text} = Typography;
 
 export interface IOfferProps {
-  data?: {
+  data: {
     id?: string;
     title?: string;
     description?: string;
@@ -76,10 +76,9 @@ const Price = styled(Text)`
  * Need to set the displayName explicitly to show it properly in the "Source" panel of Canvas
  */
 // eslint-disable-next-line fp/no-mutation
-OfferTypescript.displayName = 'Offer';
+OfferTypescript.displayName = 'OfferTypescript';
 
 OfferTypescript.defaultProps = {
-  data: undefined,
   selected: false,
   onSelect: undefined,
   onRemove: undefined,

@@ -17,6 +17,7 @@
     "baseUrl": "src",
     "outDir": "lib",
     "moduleResolution": "node16",
+    "strictBindCallApply": true,
     "plugins": [{"name": "typescript-plugin-css-modules"}]
   },
   "include": ["src"]
