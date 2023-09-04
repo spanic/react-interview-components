@@ -1,18 +1,20 @@
 {
-  "extends": [
-    "airbnb",
-    "react-app",
-    "prettier"
-  ],
+  "extends": ["airbnb", "react-app", "prettier"],
   "rules": {
     // Allow jsx tags inside .js files.
-    "react/jsx-filename-extension": [1, {"extensions": [".js", ".jsx"]}],
+    "react/jsx-filename-extension": [
+      1,
+      {"extensions": [".js", ".jsx", ".tsx"]}
+    ],
     // Disable props spreading (<App {...props} />) warning.
     "react/jsx-props-no-spreading": 0,
     // Throw warning instead of error when using array index as a key.
     "react/no-array-index-key": 1,
     // Enforce const `Component = (props) => {}` syntax
-    "react/function-component-definition": [2, { "namedComponents": "arrow-function" }],
+    "react/function-component-definition": [
+      2,
+      {"namedComponents": "arrow-function"}
+    ],
     // Allow modules with named exports only.
     "import/prefer-default-export": 0,
     // Force {foo: 'bar'} object literal syntax.
@@ -51,6 +53,16 @@
           {"property": "current"}
         ]
       }
+    ],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
     ]
   },
   "plugins": ["prettier", "fp"],
@@ -58,7 +70,8 @@
     "import/resolver": {
       "node": {
         "moduleDirectory": ["node_modules", "./src"]
-      }
+      },
+      "typescript": {}
     }
   },
   "overrides": [
@@ -92,9 +105,7 @@
       }
     },
     {
-      "files": [
-        "**/*.stories.*"
-      ],
+      "files": ["**/*.stories.*"],
       "rules": {
         "import/no-anonymous-default-export": "off"
       }

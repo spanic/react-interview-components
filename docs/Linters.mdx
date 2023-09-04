@@ -24,8 +24,8 @@ Template extends [CRA eslint rules](https://github.com/facebook/create-react-app
 Eslint rules are commented for your convenience, feel free to tweak or remove them. No judgement.
 
 ```js
-// Allow jsx tags inside .js files.
-"react/jsx-filename-extension": [1, {"extensions": [".js", ".jsx"]}],
+// Allow jsx tags inside .js and TypeScript files.
+"react/jsx-filename-extension": [1, {"extensions": [".js", ".jsx", '.tsx']}],
 // Disable props spreading (<App {...props} />) warning.
 "react/jsx-props-no-spreading": 0,
 // Throw warning instead of error when using array index as a key.

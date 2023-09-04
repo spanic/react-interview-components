@@ -9,6 +9,7 @@ import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import autoprefixer from 'autoprefixer';
 import postcssPresetEnv from 'postcss-preset-env';
 import {terser} from 'rollup-plugin-terser';
+import typescript from '@rollup/plugin-typescript';
 import pkg from './package.json';
 
 const outputs = [
@@ -44,11 +45,12 @@ const config = outputs.map(({file, format}) => ({
   },
   plugins: [
     peerDepsExternal(),
+    typescript({tsconfig: './tsconfig.json'}),
     includePaths({
       include: {},
       paths: ['src'],
       external: Object.keys(pkg.dependencies),
-      extensions: ['.js', '.jsx', '.json', '.html'],
+      extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.html'],
     }),
     svgr({exportType: 'named'}),
     postcss({
