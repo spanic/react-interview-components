@@ -30,6 +30,7 @@
     "fix:style": "run-s 'lint:style --fix'",
     "start:docs": "storybook dev -p 6006",
     "build:docs": "storybook build",
+    "serve:docs": "npm run build:docs && npx http-server ./storybook-static",
     "prepare": "husky install"
   },
   "eslintConfig": {

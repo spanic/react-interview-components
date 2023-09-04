@@ -45,7 +45,6 @@ const config = {
   async viteFinal(config) {
     return mergeConfig(config, {
       plugins: [tsconfigPaths(), svgr()],
-      base: '/src',
       publicDir: false,
     });
   },
