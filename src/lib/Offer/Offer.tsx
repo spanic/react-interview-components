@@ -22,7 +22,7 @@ export interface IOfferProps {
   onRemove?: (id: string | undefined) => void;
 }
 
-export const OfferTypescript: FC<IOfferProps> = memo(
+export const Offer: FC<IOfferProps> = memo(
   ({data, selected, toggleOnly, selectedQty, onAdd, onRemove}: IOfferProps) => {
     const {id, title, description, price} = data || {};
 
@@ -106,9 +106,9 @@ const Price = styled(Text)`
  * Need to set the displayName explicitly to show it properly in the "Source" panel of Canvas
  */
 // eslint-disable-next-line fp/no-mutation
-OfferTypescript.displayName = 'OfferTypescript';
+Offer.displayName = 'Offer';
 
-OfferTypescript.defaultProps = {
+Offer.defaultProps = {
   selected: false,
   toggleOnly: false,
   selectedQty: 0,

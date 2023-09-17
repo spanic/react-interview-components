@@ -2,9 +2,10 @@
 
 import React from 'react';
 import {Col, Row} from 'antd';
-import {Offer} from './Offer';
+import type {Meta, StoryFn} from '@storybook/react';
+import {Offer, IOfferProps} from './Offer';
 
-export default {
+const meta: Meta<typeof Offer> = {
   component: Offer,
   title: 'Components/Offer',
   decorators: [
@@ -23,7 +24,7 @@ export default {
     selected: {
       description: 'Flag that marks Offer as selected',
     },
-    onSelect: {
+    onAdd: {
       description:
         'Callback function invoked when user clicks on "➕ Add" button, passes chosen Offer\'s `id`',
     },
@@ -34,24 +35,17 @@ export default {
   },
 };
 
-const Template = args => <Offer {...args} />;
+export default meta;
 
 /**
  * Defining Stories for the Order component
  */
 
-export const Default = Template.bind({});
-Default.args = {
-  data: {
-    id: 'amazon_prime',
-    title: 'Amazon Prime',
-    description:
-      'Enjoy unlimited delivery, award-winning video, ad-free music and more',
-    price: 9.99,
-  },
-  selected: false,
-};
+export {Default} from './stories/Default.story';
 
+export {ToggleOnly} from './stories/ToggleOnly.story';
+
+const Template: StoryFn<IOfferProps> = args => <Offer {...args} />;
 export const NoData = Template.bind({});
 NoData.parameters = {
   options: {showPanel: false},

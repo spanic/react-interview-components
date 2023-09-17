@@ -4,7 +4,7 @@ import React from 'react';
 import {useArgs, useCallback, useEffect, useRef} from '@storybook/preview-api';
 import type {StoryFn} from '@storybook/react';
 import {isNullOrUndefined} from 'utils/object.utils';
-import {IOfferProps, OfferTypescript} from '../OfferTypescript';
+import {IOfferProps, Offer} from '../Offer';
 import OfferDefaultData from './offer-default-data';
 
 const Template: StoryFn<IOfferProps> = args => {
@@ -32,7 +32,7 @@ const Template: StoryFn<IOfferProps> = args => {
   }, []);
 
   return (
-    <OfferTypescript
+    <Offer
       onAdd={onChangeQty}
       onRemove={onChangeQty}
       selectedQty={quantity.current}
