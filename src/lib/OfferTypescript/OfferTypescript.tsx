@@ -1,9 +1,10 @@
-import React, {FC, memo, useCallback, useMemo} from 'react';
-import {MinusOutlined, PlusOutlined} from '@ant-design/icons';
-import {Button, ButtonProps, Card, Skeleton, Space, Typography} from 'antd';
+import React, {FC, memo, useCallback, useMemo, useRef} from 'react';
+import {Card, Skeleton, Space, Typography} from 'antd';
 import {styled} from 'styled-components';
 import {isNullOrUndefined} from 'utils/object.utils';
 import {withSkeleton} from 'utils/withSkeleton';
+import {QuantitySelector} from './components/QuantitySelector';
+import {ActionButton, ButtonType} from './components/ActionButton';
 
 const {Paragraph, Text} = Typography;
 
@@ -15,13 +16,41 @@ export interface IOfferProps {
     price?: number;
   };
   selected?: boolean;
-  onSelect?: (id: string | undefined) => void;
+  toggleOnly?: boolean;
+  selectedQty?: number;
+  onAdd?: (id: string | undefined, qty: number) => void;
   onRemove?: (id: string | undefined) => void;
 }
 
 export const OfferTypescript: FC<IOfferProps> = memo(
-  ({data, selected, onSelect, onRemove}: IOfferProps) => {
+  ({data, selected, toggleOnly, selectedQty, onAdd, onRemove}: IOfferProps) => {
     const {id, title, description, price} = data || {};
+
+    const manuallyEnteredQty = useRef<number | string | null>();
+
+    const onChangeQty = useCallback(
+      (qty: number | string | null) => {
+        qty ? onAdd?.(id, Number(qty)) : onRemove?.(id);
+      },
+      [id, onAdd, onRemove]
+    );
+
+    const onChangeQtyManually = useCallback(
+      (qty: number | string | null) => {
+        manuallyEnteredQty.current = qty;
+        if (isNullOrUndefined(qty)) {
+          return;
+        }
+        onChangeQty(qty);
+      },
+      [onChangeQty]
+    );
+
+    const onInputNumberBlur = useCallback(() => {
+      if (manuallyEnteredQty.current === null) {
+        onChangeQty(Number(manuallyEnteredQty.current));
+      }
+    }, [onChangeQty]);
 
     const DescriptionWithSkeleton = useMemo(
       () =>
@@ -42,26 +71,27 @@ export const OfferTypescript: FC<IOfferProps> = memo(
       [price]
     );
 
-    const ActionButton = useCallback(() => {
-      const props: ButtonProps = {
-        shape: 'round',
-        icon: selected ? <MinusOutlined /> : <PlusOutlined />,
-        onClick: selected ? () => onRemove?.(id) : () => onSelect?.(id),
-        children: selected ? 'Remove' : 'Add',
-        disabled: isNullOrUndefined(id),
-        ...(selected ? null : {type: 'primary'}),
-        ...(selected && {danger: true}),
-      };
-      return <Button {...props} />;
-    }, [selected, id, onRemove, onSelect]);
-
     return (
       <Card
         title={title || <Skeleton title paragraph={false} />}
         extra={<PriceWithSkeleton>{`${price}$ / month`}</PriceWithSkeleton>}>
         <DescriptionWithSkeleton>{description}</DescriptionWithSkeleton>
         <Space direction="vertical" align="end" style={{display: 'flex'}}>
-          <ActionButton />
+          {!toggleOnly && selectedQty ? (
+            <QuantitySelector
+              qty={selectedQty}
+              onIncrease={() => onChangeQty(selectedQty + 1)}
+              onDecrease={() => onChangeQty(selectedQty - 1)}
+              onChangeManually={value => onChangeQtyManually(value)}
+              onInputNumberBlur={onInputNumberBlur}
+            />
+          ) : (
+            <ActionButton
+              type={selected ? ButtonType.REMOVE : ButtonType.ADD}
+              isDisabled={isNullOrUndefined(id)}
+              onClick={selected ? () => onChangeQty(0) : () => onChangeQty(1)}
+            />
+          )}
         </Space>
       </Card>
     );
@@ -80,6 +110,8 @@ OfferTypescript.displayName = 'OfferTypescript';
 
 OfferTypescript.defaultProps = {
   selected: false,
-  onSelect: undefined,
+  toggleOnly: false,
+  selectedQty: 0,
+  onAdd: undefined,
   onRemove: undefined,
 };
