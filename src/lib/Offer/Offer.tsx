@@ -1,4 +1,4 @@
-import React, {FC, memo, useCallback, useMemo, useRef} from 'react';
+import React, {FC, memo, useCallback, useMemo} from 'react';
 import {Card, Skeleton, Space, Typography} from 'antd';
 import {styled} from 'styled-components';
 import {isNullOrUndefined} from 'utils/object.utils';
@@ -26,31 +26,12 @@ export const Offer: FC<IOfferProps> = memo(
   ({data, selected, toggleOnly, selectedQty, onAdd, onRemove}: IOfferProps) => {
     const {id, title, description, price} = data || {};
 
-    const manuallyEnteredQty = useRef<number | string | null>();
-
     const onChangeQty = useCallback(
       (qty: number | string | null) => {
         qty ? onAdd?.(id, Number(qty)) : onRemove?.(id);
       },
       [id, onAdd, onRemove]
     );
-
-    const onChangeQtyManually = useCallback(
-      (qty: number | string | null) => {
-        manuallyEnteredQty.current = qty;
-        if (isNullOrUndefined(qty)) {
-          return;
-        }
-        onChangeQty(qty);
-      },
-      [onChangeQty]
-    );
-
-    const onInputNumberBlur = useCallback(() => {
-      if (manuallyEnteredQty.current === null) {
-        onChangeQty(Number(manuallyEnteredQty.current));
-      }
-    }, [onChangeQty]);
 
     const DescriptionWithSkeleton = useMemo(
       () =>
@@ -78,13 +59,7 @@ export const Offer: FC<IOfferProps> = memo(
         <DescriptionWithSkeleton>{description}</DescriptionWithSkeleton>
         <Space direction="vertical" align="end" style={{display: 'flex'}}>
           {!toggleOnly && selectedQty ? (
-            <QuantitySelector
-              qty={selectedQty}
-              onIncrease={() => onChangeQty(selectedQty + 1)}
-              onDecrease={() => onChangeQty(selectedQty - 1)}
-              onChangeManually={value => onChangeQtyManually(value)}
-              onInputNumberBlur={onInputNumberBlur}
-            />
+            <QuantitySelector qty={selectedQty} onChange={onChangeQty} />
           ) : (
             <ActionButton
               type={selected ? ButtonType.REMOVE : ButtonType.ADD}
