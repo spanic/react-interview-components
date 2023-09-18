@@ -42,7 +42,7 @@ export const QuantitySelector: FC<IQuantitySelectorProps> = ({
       <InputNumber
         value={qty}
         min={0}
-        max={10}
+        max={10} /* TODO: remove hardcoded value */
         controls={false}
         onChange={onChangeManually}
         onBlur={onInputNumberBlur}
@@ -58,8 +58,14 @@ export const QuantitySelector: FC<IQuantitySelectorProps> = ({
 
 const InputNumber = styled(AndtInputNumber)`
   &.ant-input-number-compact-item {
+    width: 4rem;
+
     &:focus-within {
       z-index: 2;
+    }
+
+    .ant-input-number-input {
+      text-align: center;
     }
   }
 `;
