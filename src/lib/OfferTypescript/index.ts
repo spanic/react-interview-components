@@ -1,1 +1,0 @@
-export {OfferTypescript} from './OfferTypescript';

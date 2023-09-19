@@ -3,11 +3,16 @@ import * as OfferStories from './Offer.stories';
 
 <Meta of={OfferStories} />
 
-# Offer component
+# Offer component (TypeScript! 🎉)
 
 ## Description
 
-`Offer` component card displays Offer data: `title`, `description` and `price`. User can add or remove Offer from the order by pressing the corresponding button on the card.
+`Offer` component card displays Offer data: `title`, `description` and `price`. Component is fully controlled, i. e. it doesn't have it's own internal state.
+
+Component provides 2 ways of interaction:
+
+- if `multiple == true`, user can add same Offer multiple times by pressing counter buttons or by entering quantity manually using the input
+- otherwise, user can add or remove only single instance of the Offer by pressing the corresponding button
 
 ## Props
 

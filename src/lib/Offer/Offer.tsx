@@ -1,9 +1,10 @@
-import React, {FC, memo, useCallback, useMemo} from 'react';
-import {MinusOutlined, PlusOutlined} from '@ant-design/icons';
-import {Button, ButtonProps, Card, Skeleton, Space, Typography} from 'antd';
+import React, {FC, memo, useMemo} from 'react';
+import {Card, Skeleton, Space, Typography} from 'antd';
 import {styled} from 'styled-components';
 import {isNullOrUndefined} from 'utils/object.utils';
 import {withSkeleton} from 'utils/withSkeleton';
+import {QuantitySelector} from './components/QuantitySelector';
+import {ActionButton, ButtonType} from './components/ActionButton';
 
 const {Paragraph, Text} = Typography;
 
@@ -14,13 +15,14 @@ export interface IOfferProps {
     description?: string;
     price?: number;
   };
-  selected?: boolean;
-  onSelect?: (id: string | undefined) => void;
-  onRemove?: (id: string | undefined) => void;
+  multiple?: boolean;
+  maxQty?: number;
+  selectedQty?: number;
+  onChangeQty?: (qty: number) => void;
 }
 
-export const OfferTypescript: FC<IOfferProps> = memo(
-  ({data, selected, onSelect, onRemove}: IOfferProps) => {
+export const Offer: FC<IOfferProps> = memo(
+  ({data, multiple, maxQty, selectedQty, onChangeQty}: IOfferProps) => {
     const {id, title, description, price} = data || {};
 
     const DescriptionWithSkeleton = useMemo(
@@ -42,26 +44,27 @@ export const OfferTypescript: FC<IOfferProps> = memo(
       [price]
     );
 
-    const ActionButton = useCallback(() => {
-      const props: ButtonProps = {
-        shape: 'round',
-        icon: selected ? <MinusOutlined /> : <PlusOutlined />,
-        onClick: selected ? () => onRemove?.(id) : () => onSelect?.(id),
-        children: selected ? 'Remove' : 'Add',
-        disabled: isNullOrUndefined(id),
-        ...(selected ? null : {type: 'primary'}),
-        ...(selected && {danger: true}),
-      };
-      return <Button {...props} />;
-    }, [selected, id, onRemove, onSelect]);
-
     return (
       <Card
         title={title || <Skeleton title paragraph={false} />}
         extra={<PriceWithSkeleton>{`${price}$ / month`}</PriceWithSkeleton>}>
         <DescriptionWithSkeleton>{description}</DescriptionWithSkeleton>
         <Space direction="vertical" align="end" style={{display: 'flex'}}>
-          <ActionButton />
+          {multiple && selectedQty ? (
+            <QuantitySelector
+              qty={selectedQty}
+              maxQty={maxQty!}
+              onChange={qty => onChangeQty?.(qty)}
+            />
+          ) : (
+            <ActionButton
+              type={
+                !multiple && selectedQty ? ButtonType.REMOVE : ButtonType.ADD
+              }
+              disabled={isNullOrUndefined(id) || maxQty === 0}
+              onClick={() => onChangeQty?.(!multiple && selectedQty ? 0 : 1)}
+            />
+          )}
         </Space>
       </Card>
     );
@@ -76,10 +79,11 @@ const Price = styled(Text)`
  * Need to set the displayName explicitly to show it properly in the "Source" panel of Canvas
  */
 // eslint-disable-next-line fp/no-mutation
-OfferTypescript.displayName = 'OfferTypescript';
+Offer.displayName = 'Offer';
 
-OfferTypescript.defaultProps = {
-  selected: false,
-  onSelect: undefined,
-  onRemove: undefined,
+Offer.defaultProps = {
+  multiple: false,
+  maxQty: 10,
+  selectedQty: 0,
+  onChangeQty: undefined,
 };
