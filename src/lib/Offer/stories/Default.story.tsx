@@ -27,17 +27,12 @@ const Template: StoryFn<IOfferProps> = args => {
     }
   }, [selectedQty]);
 
-  const onChangeQty = useCallback((id: string | undefined, qty?: number) => {
-    updateArgs({selectedQty: isNullOrUndefined(qty) ? 0 : qty});
+  const onChangeQty = useCallback((qty: number) => {
+    updateArgs({selectedQty: qty});
   }, []);
 
   return (
-    <Offer
-      onAdd={onChangeQty}
-      onRemove={onChangeQty}
-      selectedQty={quantity.current}
-      {...args}
-    />
+    <Offer onChangeQty={onChangeQty} selectedQty={quantity.current} {...args} />
   );
 };
 
@@ -47,7 +42,7 @@ Default.args = {
 };
 Default.parameters = {
   actions: [],
-  controls: {exclude: ['selected', 'toggleOnly', 'onAdd', 'onRemove']},
+  controls: {exclude: ['selected', 'toggleOnly', 'onChangeQty']},
 };
 Default.argTypes = {
   selectedQty: {control: {type: 'number', min: 0, max: 10}},

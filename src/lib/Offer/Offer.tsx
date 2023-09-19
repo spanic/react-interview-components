@@ -1,4 +1,4 @@
-import React, {FC, memo, useCallback, useMemo} from 'react';
+import React, {FC, memo, useMemo} from 'react';
 import {Card, Skeleton, Space, Typography} from 'antd';
 import {styled} from 'styled-components';
 import {isNullOrUndefined} from 'utils/object.utils';
@@ -17,21 +17,21 @@ export interface IOfferProps {
   };
   selected?: boolean;
   toggleOnly?: boolean;
+  maxQty?: number;
   selectedQty?: number;
-  onAdd?: (id: string | undefined, qty: number) => void;
-  onRemove?: (id: string | undefined) => void;
+  onChangeQty?: (qty: number) => void;
 }
 
 export const Offer: FC<IOfferProps> = memo(
-  ({data, selected, toggleOnly, selectedQty, onAdd, onRemove}: IOfferProps) => {
+  ({
+    data,
+    selected,
+    toggleOnly,
+    maxQty,
+    selectedQty,
+    onChangeQty,
+  }: IOfferProps) => {
     const {id, title, description, price} = data || {};
-
-    const onChangeQty = useCallback(
-      (qty: number | string | null) => {
-        qty ? onAdd?.(id, Number(qty)) : onRemove?.(id);
-      },
-      [id, onAdd, onRemove]
-    );
 
     const DescriptionWithSkeleton = useMemo(
       () =>
@@ -59,12 +59,18 @@ export const Offer: FC<IOfferProps> = memo(
         <DescriptionWithSkeleton>{description}</DescriptionWithSkeleton>
         <Space direction="vertical" align="end" style={{display: 'flex'}}>
           {!toggleOnly && selectedQty ? (
-            <QuantitySelector qty={selectedQty} onChange={onChangeQty} />
+            <QuantitySelector
+              qty={selectedQty}
+              maxQty={maxQty!}
+              onChange={qty => onChangeQty?.(qty)}
+            />
           ) : (
             <ActionButton
               type={selected ? ButtonType.REMOVE : ButtonType.ADD}
               isDisabled={isNullOrUndefined(id)}
-              onClick={selected ? () => onChangeQty(0) : () => onChangeQty(1)}
+              onClick={
+                selected ? () => onChangeQty?.(0) : () => onChangeQty?.(1)
+              }
             />
           )}
         </Space>
@@ -86,7 +92,7 @@ Offer.displayName = 'Offer';
 Offer.defaultProps = {
   selected: false,
   toggleOnly: false,
+  maxQty: 10,
   selectedQty: 0,
-  onAdd: undefined,
-  onRemove: undefined,
+  onChangeQty: undefined,
 };

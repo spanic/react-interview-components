@@ -9,28 +9,27 @@ import OfferDefaultData from './offer-default-data';
 const Template: StoryFn<IOfferProps> = args => {
   const [{selected}, updateArgs] = useArgs();
 
-  const isSelected = useRef<boolean>(selected);
+  const selectedRef = useRef<boolean>(selected);
 
   useEffect(() => {
     updateArgs({selected: !!selected});
   }, []);
 
   useEffect(() => {
-    if (selected !== isSelected.current) {
-      isSelected.current = selected;
+    if (selected !== selectedRef.current) {
+      selectedRef.current = selected;
       updateArgs({selected});
     }
   }, [selected]);
 
-  const onToggle = useCallback((value: boolean) => {
-    updateArgs({selected: value});
+  const onToggle = useCallback((isSelected: boolean) => {
+    updateArgs({selected: isSelected});
   }, []);
 
   return (
     <Offer
-      onAdd={() => onToggle(true)}
-      onRemove={() => onToggle(false)}
-      selected={isSelected.current}
+      onChangeQty={value => onToggle(!!value)}
+      selected={selectedRef.current}
       {...args}
     />
   );
@@ -45,5 +44,5 @@ ToggleOnly.args = {
 
 ToggleOnly.parameters = {
   actions: [],
-  controls: {exclude: ['toggleOnly', 'selectedQty', 'onAdd', 'onRemove']},
+  controls: {exclude: ['toggleOnly', 'maxQty', 'selectedQty', 'onChangeQty']},
 };

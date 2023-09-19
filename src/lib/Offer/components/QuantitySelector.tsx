@@ -6,11 +6,13 @@ import {isNullOrUndefined} from 'utils/object.utils';
 
 export interface IQuantitySelectorProps {
   qty: number;
+  maxQty: number;
   onChange: (value: number) => void;
 }
 
 export const QuantitySelector: FC<IQuantitySelectorProps> = ({
   qty,
+  maxQty,
   onChange,
 }) => {
   const manuallyEnteredQty = useRef<number | string | null>();
@@ -42,7 +44,7 @@ export const QuantitySelector: FC<IQuantitySelectorProps> = ({
       <InputNumber
         value={qty}
         min={0}
-        max={10} /* TODO: remove hardcoded value */
+        max={maxQty}
         controls={false}
         onChange={onChangeManually}
         onBlur={onInputNumberBlur}
@@ -50,7 +52,7 @@ export const QuantitySelector: FC<IQuantitySelectorProps> = ({
       <Button
         icon={<PlusOutlined />}
         onClick={() => onChange(qty + 1)}
-        disabled={qty === 10 /* TODO: remove hardcoded value */}
+        disabled={qty >= maxQty}
       />
     </Space.Compact>
   );

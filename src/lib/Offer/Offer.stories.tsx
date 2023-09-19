@@ -22,15 +22,23 @@ const meta: Meta<typeof Offer> = {
       description: 'Offer data',
     },
     selected: {
-      description: 'Flag that marks Offer as selected',
+      description: `Flag that marks Offer as selected<br />
+        ❗️ Works only if \`toggleOnly == true\``,
     },
-    onAdd: {
+    toggleOnly: {
       description:
-        'Callback function invoked when user clicks on "➕ Add" button, passes chosen Offer\'s `id`',
+        'Controls whether Offer could be added only once, or adding multiple instances is allowed',
     },
-    onRemove: {
-      description:
-        'Callback function invoked when user clicks on "➖ Remove" button, passes removed Offer\'s `id`',
+    maxQty: {
+      description: `Maximum number of Offer instances that user can add<br />
+      ❗️ Works only if \`toggleOnly == false\``,
+    },
+    selectedQty: {
+      description: `Number of Offer instances that has already been added<br />
+        ❗️ Works only if \`toggleOnly == false\``,
+    },
+    onChangeQty: {
+      description: `Callback function invoked when changes selected amount of Offer instances`,
     },
   },
 };
