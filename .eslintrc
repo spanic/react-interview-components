@@ -1,10 +1,20 @@
 {
-  "extends": ["airbnb", "react-app", "prettier"],
+  "extends": [
+    "airbnb",
+    "react-app",
+    "prettier"
+  ],
   "rules": {
     // Allow jsx tags inside .js files.
     "react/jsx-filename-extension": [
       1,
-      {"extensions": [".js", ".jsx", ".tsx"]}
+      {
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".tsx"
+        ]
+      }
     ],
     // Disable props spreading (<App {...props} />) warning.
     "react/jsx-props-no-spreading": 0,
@@ -13,18 +23,38 @@
     // Enforce const `Component = (props) => {}` syntax
     "react/function-component-definition": [
       2,
-      {"namedComponents": "arrow-function"}
+      {
+        "namedComponents": "arrow-function"
+      }
     ],
     // Allow modules with named exports only.
     "import/prefer-default-export": 0,
     // Force {foo: 'bar'} object literal syntax.
-    "object-curly-spacing": ["error", "never"],
+    "object-curly-spacing": [
+      "error",
+      "never"
+    ],
     // Throw warning instead of error. Feel free to choose your favorite option https://eslint.org/docs/rules/arrow-body-style
-    "arrow-body-style": ["warn", "as-needed"],
+    "arrow-body-style": [
+      "warn",
+      "as-needed"
+    ],
     // Make prettier code formatting suggestions more verbose.
-    "prettier/prettier": ["warn"],
+    "prettier/prettier": [
+      "warn",
+      {
+        "endOfLine": "auto"
+      }
+    ],
     // Throw warning when <a href="#"> or <a href="javascript:void(0)"> are used. Use <button> instead.
-    "jsx-a11y/anchor-is-valid": ["warn", {"aspects": ["invalidHref"]}],
+    "jsx-a11y/anchor-is-valid": [
+      "warn",
+      {
+        "aspects": [
+          "invalidHref"
+        ]
+      }
+    ],
     // Allow using (props) => <Component /> and ({propName}) => <Component /> syntax.
     "react/destructuring-assignment": "off",
     // Disable <Fragment> => <> replacement. Feel free to change
@@ -38,7 +68,10 @@
     "fp/no-mutating-methods": [
       "warn",
       {
-        "allowedObjects": ["_", "R"]
+        "allowedObjects": [
+          "_",
+          "R"
+        ]
       }
     ],
     // Warning when mutating operators (++, --, etc) are used, object = {} also. `Component.propTypes`, `Component.defaultProps`, common.js (`module.exports`) and `ref.current` are ok.
@@ -48,9 +81,15 @@
         "commonjs": true,
         "allowThis": true,
         "exceptions": [
-          {"property": "propTypes"},
-          {"property": "defaultProps"},
-          {"property": "current"}
+          {
+            "property": "propTypes"
+          },
+          {
+            "property": "defaultProps"
+          },
+          {
+            "property": "current"
+          }
         ]
       }
     ],
@@ -65,20 +104,31 @@
       }
     ],
     "no-shadow": "off",
-    "@typescript-eslint/no-shadow": ["error"]
+    "@typescript-eslint/no-shadow": [
+      "error"
+    ]
   },
-  "plugins": ["prettier", "fp"],
+  "plugins": [
+    "prettier",
+    "fp"
+  ],
   "settings": {
     "import/resolver": {
       "node": {
-        "moduleDirectory": ["node_modules", "./src"]
+        "moduleDirectory": [
+          "node_modules",
+          "./src"
+        ]
       },
       "typescript": {}
     }
   },
   "overrides": [
     {
-      "files": ["./*.js", "setupTests.js"],
+      "files": [
+        "./*.js",
+        "setupTests.js"
+      ],
       "rules": {
         "import/no-extraneous-dependencies": [
           "error",
@@ -92,22 +142,35 @@
       }
     },
     {
-      "files": ["**/*.spec.js"],
+      "files": [
+        "**/*.spec.js"
+      ],
       "rules": {
         "react/prop-types": "off"
       }
     },
     {
-      "files": ["src/lib/**/*.js"],
+      "files": [
+        "src/lib/**/*.js"
+      ],
       "rules": {
         "import/no-restricted-paths": [
           "error",
-          {"zones": [{"target": "./src/lib", "from": "./src/environment"}]}
+          {
+            "zones": [
+              {
+                "target": "./src/lib",
+                "from": "./src/environment"
+              }
+            ]
+          }
         ]
       }
     },
     {
-      "files": ["**/*.stories.*"],
+      "files": [
+        "**/*.stories.*"
+      ],
       "rules": {
         "import/no-anonymous-default-export": "off"
       }

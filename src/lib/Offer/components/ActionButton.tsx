@@ -4,8 +4,8 @@ import {Button, ButtonProps} from 'antd';
 
 export interface IActionButtonProps {
   type: ButtonType;
-  isDisabled: boolean;
-  onClick: () => void;
+  disabled?: boolean;
+  onClick?: () => void;
 }
 
 export enum ButtonType {
@@ -15,7 +15,7 @@ export enum ButtonType {
 
 export const ActionButton: FC<IActionButtonProps> = ({
   type,
-  isDisabled,
+  disabled,
   onClick,
 }) => {
   const props: ButtonProps = {
@@ -23,9 +23,14 @@ export const ActionButton: FC<IActionButtonProps> = ({
     icon: type === ButtonType.ADD ? <PlusOutlined /> : <MinusOutlined />,
     onClick,
     children: type === ButtonType.ADD ? 'Add' : 'Remove',
-    disabled: isDisabled,
+    disabled,
     ...(type === ButtonType.ADD && {type: 'primary'}),
     ...(type === ButtonType.REMOVE && {danger: true}),
   };
   return <Button {...props} />;
+};
+
+ActionButton.defaultProps = {
+  disabled: false,
+  onClick: undefined,
 };

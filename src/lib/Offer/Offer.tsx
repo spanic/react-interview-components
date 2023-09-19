@@ -16,7 +16,7 @@ export interface IOfferProps {
     price?: number;
   };
   selected?: boolean;
-  toggleOnly?: boolean;
+  multiple?: boolean;
   maxQty?: number;
   selectedQty?: number;
   onChangeQty?: (qty: number) => void;
@@ -26,7 +26,7 @@ export const Offer: FC<IOfferProps> = memo(
   ({
     data,
     selected,
-    toggleOnly,
+    multiple,
     maxQty,
     selectedQty,
     onChangeQty,
@@ -58,7 +58,7 @@ export const Offer: FC<IOfferProps> = memo(
         extra={<PriceWithSkeleton>{`${price}$ / month`}</PriceWithSkeleton>}>
         <DescriptionWithSkeleton>{description}</DescriptionWithSkeleton>
         <Space direction="vertical" align="end" style={{display: 'flex'}}>
-          {!toggleOnly && selectedQty ? (
+          {multiple && selectedQty ? (
             <QuantitySelector
               qty={selectedQty}
               maxQty={maxQty!}
@@ -67,10 +67,8 @@ export const Offer: FC<IOfferProps> = memo(
           ) : (
             <ActionButton
               type={selected ? ButtonType.REMOVE : ButtonType.ADD}
-              isDisabled={isNullOrUndefined(id)}
-              onClick={
-                selected ? () => onChangeQty?.(0) : () => onChangeQty?.(1)
-              }
+              disabled={isNullOrUndefined(id) || maxQty === 0}
+              onClick={() => onChangeQty?.(selected ? 0 : 1)}
             />
           )}
         </Space>
@@ -91,7 +89,7 @@ Offer.displayName = 'Offer';
 
 Offer.defaultProps = {
   selected: false,
-  toggleOnly: false,
+  multiple: false,
   maxQty: 10,
   selectedQty: 0,
   onChangeQty: undefined,

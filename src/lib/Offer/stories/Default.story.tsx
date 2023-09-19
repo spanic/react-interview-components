@@ -3,36 +3,35 @@
 import React from 'react';
 import {useArgs, useCallback, useEffect, useRef} from '@storybook/preview-api';
 import type {StoryFn} from '@storybook/react';
-import {isNullOrUndefined} from 'utils/object.utils';
 import {IOfferProps, Offer} from '../Offer';
 import OfferDefaultData from './offer-default-data';
 
 const Template: StoryFn<IOfferProps> = args => {
-  const [{selectedQty}, updateArgs] = useArgs();
+  const [{selected}, updateArgs] = useArgs();
 
-  const quantity = useRef<number>(0);
+  const selectedRef = useRef<boolean>(selected);
 
   useEffect(() => {
-    const selectedQtyValue = isNullOrUndefined(selectedQty) ? 0 : selectedQty;
-    updateArgs({selectedQty: selectedQtyValue});
+    updateArgs({selected: !!selected});
   }, []);
 
   useEffect(() => {
-    if (isNullOrUndefined(selectedQty)) {
-      return;
+    if (selected !== selectedRef.current) {
+      selectedRef.current = selected;
+      updateArgs({selected});
     }
-    if (selectedQty !== quantity.current) {
-      quantity.current = selectedQty;
-      updateArgs({selectedQty});
-    }
-  }, [selectedQty]);
+  }, [selected]);
 
-  const onChangeQty = useCallback((qty: number) => {
-    updateArgs({selectedQty: qty});
+  const onToggle = useCallback((isSelected: boolean) => {
+    updateArgs({selected: isSelected});
   }, []);
 
   return (
-    <Offer onChangeQty={onChangeQty} selectedQty={quantity.current} {...args} />
+    <Offer
+      onChangeQty={value => onToggle(!!value)}
+      selected={selectedRef.current}
+      {...args}
+    />
   );
 };
 
@@ -42,7 +41,9 @@ Default.args = {
 };
 Default.parameters = {
   actions: [],
-  controls: {exclude: ['selected', 'toggleOnly', 'onChangeQty']},
+  controls: {
+    exclude: ['multiple', 'maxQty', 'selectedQty', 'onChangeQty'],
+  },
 };
 Default.argTypes = {
   selectedQty: {control: {type: 'number', min: 0, max: 10}},

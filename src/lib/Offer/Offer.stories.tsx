@@ -23,19 +23,19 @@ const meta: Meta<typeof Offer> = {
     },
     selected: {
       description: `Flag that marks Offer as selected<br />
-        ❗️ Works only if \`toggleOnly == true\``,
+        ❗️ Works only if \`multiple == false\``,
     },
-    toggleOnly: {
+    multiple: {
       description:
         'Controls whether Offer could be added only once, or adding multiple instances is allowed',
     },
     maxQty: {
       description: `Maximum number of Offer instances that user can add<br />
-      ❗️ Works only if \`toggleOnly == false\``,
+      ❗️ Works only if \`multiple == true\``,
     },
     selectedQty: {
       description: `Number of Offer instances that has already been added<br />
-        ❗️ Works only if \`toggleOnly == false\``,
+        ❗️ Works only if \`multiple == true\``,
     },
     onChangeQty: {
       description: `Callback function invoked when changes selected amount of Offer instances`,
@@ -51,7 +51,7 @@ export default meta;
 
 export {Default} from './stories/Default.story';
 
-export {ToggleOnly} from './stories/ToggleOnly.story';
+export {Multiple} from './stories/Multiple.story';
 
 const Template: StoryFn<IOfferProps> = args => <Offer {...args} />;
 export const NoData = Template.bind({});
