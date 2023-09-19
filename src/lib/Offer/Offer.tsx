@@ -15,7 +15,6 @@ export interface IOfferProps {
     description?: string;
     price?: number;
   };
-  selected?: boolean;
   multiple?: boolean;
   maxQty?: number;
   selectedQty?: number;
@@ -23,14 +22,7 @@ export interface IOfferProps {
 }
 
 export const Offer: FC<IOfferProps> = memo(
-  ({
-    data,
-    selected,
-    multiple,
-    maxQty,
-    selectedQty,
-    onChangeQty,
-  }: IOfferProps) => {
+  ({data, multiple, maxQty, selectedQty, onChangeQty}: IOfferProps) => {
     const {id, title, description, price} = data || {};
 
     const DescriptionWithSkeleton = useMemo(
@@ -66,9 +58,11 @@ export const Offer: FC<IOfferProps> = memo(
             />
           ) : (
             <ActionButton
-              type={selected ? ButtonType.REMOVE : ButtonType.ADD}
+              type={
+                !multiple && selectedQty ? ButtonType.REMOVE : ButtonType.ADD
+              }
               disabled={isNullOrUndefined(id) || maxQty === 0}
-              onClick={() => onChangeQty?.(selected ? 0 : 1)}
+              onClick={() => onChangeQty?.(!multiple && selectedQty ? 0 : 1)}
             />
           )}
         </Space>
@@ -88,7 +82,6 @@ const Price = styled(Text)`
 Offer.displayName = 'Offer';
 
 Offer.defaultProps = {
-  selected: false,
   multiple: false,
   maxQty: 10,
   selectedQty: 0,

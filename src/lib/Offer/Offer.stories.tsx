@@ -21,10 +21,6 @@ const meta: Meta<typeof Offer> = {
     data: {
       description: 'Offer data',
     },
-    selected: {
-      description: `Flag that marks Offer as selected<br />
-        ❗️ Works only if \`multiple == false\``,
-    },
     multiple: {
       description:
         'Controls whether Offer could be added only once, or adding multiple instances is allowed',
@@ -34,8 +30,7 @@ const meta: Meta<typeof Offer> = {
       ❗️ Works only if \`multiple == true\``,
     },
     selectedQty: {
-      description: `Number of Offer instances that has already been added<br />
-        ❗️ Works only if \`multiple == true\``,
+      description: `Number of Offer instances that has already been added<br />`,
     },
     onChangeQty: {
       description: `Callback function invoked when changes selected amount of Offer instances`,
@@ -49,7 +44,7 @@ export default meta;
  * Defining Stories for the Order component
  */
 
-export {Default} from './stories/Default.story';
+export {default as Default} from './stories/Default.story';
 
 export {Multiple} from './stories/Multiple.story';
 

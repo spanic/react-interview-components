@@ -3,48 +3,51 @@
 import React from 'react';
 import {useArgs, useCallback, useEffect, useRef} from '@storybook/preview-api';
 import type {StoryFn} from '@storybook/react';
+import {isNullOrUndefined} from 'utils/object.utils';
 import {IOfferProps, Offer} from '../Offer';
 import OfferDefaultData from './offer-default-data';
 
-const Template: StoryFn<IOfferProps> = args => {
-  const [{selected}, updateArgs] = useArgs();
+export const Template: StoryFn<IOfferProps> = args => {
+  const [{selectedQty}, updateArgs] = useArgs();
 
-  const selectedRef = useRef<boolean>(selected);
+  const quantity = useRef<number>(0);
 
   useEffect(() => {
-    updateArgs({selected: !!selected});
+    const selectedQtyValue = isNullOrUndefined(selectedQty) ? 0 : selectedQty;
+    updateArgs({selectedQty: selectedQtyValue});
   }, []);
 
   useEffect(() => {
-    if (selected !== selectedRef.current) {
-      selectedRef.current = selected;
-      updateArgs({selected});
+    if (isNullOrUndefined(selectedQty)) {
+      return;
     }
-  }, [selected]);
+    if (selectedQty !== quantity.current) {
+      quantity.current = selectedQty;
+      updateArgs({selectedQty});
+    }
+  }, [selectedQty]);
 
-  const onToggle = useCallback((isSelected: boolean) => {
-    updateArgs({selected: isSelected});
+  const onChangeQty = useCallback((qty: number) => {
+    updateArgs({selectedQty: qty});
   }, []);
 
   return (
-    <Offer
-      onChangeQty={value => onToggle(!!value)}
-      selected={selectedRef.current}
-      {...args}
-    />
+    <Offer onChangeQty={onChangeQty} selectedQty={quantity.current} {...args} />
   );
 };
 
-export const Default = Template.bind({});
+const Default = Template.bind({});
 Default.args = {
   data: OfferDefaultData,
 };
 Default.parameters = {
   actions: [],
   controls: {
-    exclude: ['multiple', 'maxQty', 'selectedQty', 'onChangeQty'],
+    exclude: ['multiple', 'maxQty', 'onChangeQty'],
   },
 };
 Default.argTypes = {
-  selectedQty: {control: {type: 'number', min: 0, max: 10}},
+  selectedQty: {control: {type: 'number', min: 0, max: 1}},
 };
+
+export default Default;
