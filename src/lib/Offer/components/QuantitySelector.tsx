@@ -1,8 +1,9 @@
-import React, {FC, useCallback, useRef} from 'react';
 import {MinusOutlined, PlusOutlined} from '@ant-design/icons';
 import {Button, InputNumber as AndtInputNumber, Space} from 'antd';
+import React, {FC, useCallback, useRef} from 'react';
 import {styled} from 'styled-components';
 import {isNullOrUndefined} from 'utils/object.utils';
+import {ResetButton} from './ResetButton';
 
 export interface IQuantitySelectorProps {
   qty: number;
@@ -35,28 +36,40 @@ export const QuantitySelector: FC<IQuantitySelectorProps> = ({
   }, [onChange]);
 
   return (
-    <Space.Compact>
-      <Button
-        icon={<MinusOutlined />}
-        onClick={() => onChange(qty - 1)}
-        disabled={qty === 0}
-      />
-      <InputNumber
-        value={qty}
-        min={0}
-        max={maxQty}
-        controls={false}
-        onChange={onChangeManually}
-        onBlur={onInputNumberBlur}
-      />
-      <Button
-        icon={<PlusOutlined />}
-        onClick={() => onChange(qty + 1)}
-        disabled={qty >= maxQty}
-      />
-    </Space.Compact>
+    <Container>
+      <ResetButton onConfirm={() => onChange(0)} currentValue={qty} />
+      <Space.Compact>
+        <Button
+          icon={<MinusOutlined />}
+          onClick={() => onChange(qty - 1)}
+          disabled={qty === 0}
+        />
+        <InputNumber
+          value={qty}
+          min={0}
+          max={maxQty}
+          controls={false}
+          onChange={onChangeManually}
+          onBlur={onInputNumberBlur}
+        />
+        <Button
+          icon={<PlusOutlined />}
+          onClick={() => onChange(qty + 1)}
+          disabled={qty >= maxQty}
+        />
+      </Space.Compact>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  & > * {
+    flex-shrink: 0;
+  }
+`;
 
 const InputNumber = styled(AndtInputNumber)`
   &.ant-input-number-compact-item {

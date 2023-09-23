@@ -49,14 +49,14 @@ export const Offer: FC<IOfferProps> = memo(
         title={title || <Skeleton title paragraph={false} />}
         extra={<PriceWithSkeleton>{`${price}$ / month`}</PriceWithSkeleton>}>
         <DescriptionWithSkeleton>{description}</DescriptionWithSkeleton>
-        <Space direction="vertical" align="end" style={{display: 'flex'}}>
-          {multiple && selectedQty ? (
-            <QuantitySelector
-              qty={selectedQty}
-              maxQty={maxQty!}
-              onChange={qty => onChangeQty?.(qty)}
-            />
-          ) : (
+        {multiple && selectedQty ? (
+          <QuantitySelector
+            qty={selectedQty}
+            maxQty={maxQty!}
+            onChange={qty => onChangeQty?.(qty)}
+          />
+        ) : (
+          <Space direction="vertical" align="end" style={{display: 'flex'}}>
             <ActionButton
               type={
                 !multiple && selectedQty ? ButtonType.REMOVE : ButtonType.ADD
@@ -64,8 +64,8 @@ export const Offer: FC<IOfferProps> = memo(
               disabled={isNullOrUndefined(id) || maxQty === 0}
               onClick={() => onChangeQty?.(!multiple && selectedQty ? 0 : 1)}
             />
-          )}
-        </Space>
+          </Space>
+        )}
       </Card>
     );
   }
