@@ -36,7 +36,7 @@ export const Template: StoryFn<IOfferProps> = args => {
   );
 };
 
-const Default = Template.bind({});
+const Default: StoryFn<IOfferProps> = Template.bind({});
 Default.args = {
   data: OfferDefaultData,
 };

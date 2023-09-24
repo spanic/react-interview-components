@@ -44,7 +44,7 @@ const Template: StoryFn<IConnectionsGraphProps> = args => {
  * Defining Stories for the ConnectionsGraph component
  */
 
-export const Default = Template.bind({});
+export const Default: StoryFn<IConnectionsGraphProps> = Template.bind({});
 Default.args = {
   source: [
     {

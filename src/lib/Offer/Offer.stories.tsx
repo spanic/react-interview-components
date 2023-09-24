@@ -49,7 +49,7 @@ export {default as Default} from './stories/Default.story';
 export {Multiple} from './stories/Multiple.story';
 
 const Template: StoryFn<IOfferProps> = args => <Offer {...args} />;
-export const NoData = Template.bind({});
+export const NoData: StoryFn<IOfferProps> = Template.bind({});
 NoData.parameters = {
   options: {showPanel: false},
   controls: {exclude: /^.*/},

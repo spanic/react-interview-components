@@ -16,8 +16,10 @@
     "jsx": "react-jsx",
     "baseUrl": "src",
     "outDir": "lib",
+    "declarationDir": "lib/types",
     "moduleResolution": "node16",
     "strictBindCallApply": true,
-    "plugins": [{"name": "typescript-plugin-css-modules"}]
+    "plugins": [{"name": "typescript-plugin-css-modules"}],
+    "declaration": true
   }
 }

@@ -1,3 +1,4 @@
+import pkg from './package.json' assert {type: 'json'};
 import svgr from '@svgr/rollup';
 import babel from '@rollup/plugin-babel';
 import resolve from '@rollup/plugin-node-resolve';
@@ -8,9 +9,10 @@ import includePaths from 'rollup-plugin-includepaths';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import autoprefixer from 'autoprefixer';
 import postcssPresetEnv from 'postcss-preset-env';
-import {terser} from 'rollup-plugin-terser';
+import terser from '@rollup/plugin-terser';
 import typescript from '@rollup/plugin-typescript';
-import pkg from './package.json';
+import {dts} from 'rollup-plugin-dts';
+import del from 'rollup-plugin-delete';
 
 const outputs = [
   {
@@ -71,5 +73,13 @@ const config = outputs.map(({file, format}) => ({
     filesize(),
   ],
 }));
+
+const typeDefinitions = {
+  input: 'lib/types/lib/index.d.ts',
+  output: [{file: 'lib/index.d.ts', format: 'es'}],
+  plugins: [dts(), del({hook: 'buildEnd', targets: 'lib/types'})],
+};
+
+config.push(typeDefinitions);
 
 export default config;
