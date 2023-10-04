@@ -3,7 +3,10 @@ import {Button, InputNumber as AndtInputNumber, Space} from 'antd';
 import React, {FC, useCallback, useRef} from 'react';
 import {styled} from 'styled-components';
 import {isNullOrUndefined} from 'utils/object.utils';
+import useCompactMode from '../hooks/useCompactMode.hook';
 import {ResetButton} from './ResetButton';
+
+const MIN_WIDTH_PX = 260;
 
 export interface IQuantitySelectorProps {
   qty: number;
@@ -16,6 +19,8 @@ export const QuantitySelector: FC<IQuantitySelectorProps> = ({
   maxQty,
   onChange,
 }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
   const manuallyEnteredQty = useRef<number | string | null>();
 
   const onChangeManually = useCallback(
@@ -36,8 +41,13 @@ export const QuantitySelector: FC<IQuantitySelectorProps> = ({
   }, [onChange]);
 
   return (
-    <Container>
-      <ResetButton onConfirm={() => onChange(0)} currentValue={qty} />
+    <Container ref={containerRef}>
+      <ResetButton
+        iconOnly={useCompactMode(containerRef, MIN_WIDTH_PX)}
+        onConfirm={() => onChange(0)}
+        currentValue={qty}
+      />
+
       <Space.Compact>
         <Button
           icon={<MinusOutlined />}

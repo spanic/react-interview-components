@@ -1,64 +1,78 @@
-import React, {FC, useCallback, useEffect, useRef, useState} from 'react';
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import styled, {css, keyframes} from 'styled-components';
 import {CloseOutlined, UndoOutlined} from '@ant-design/icons';
 import {Button as AntdButton} from 'antd';
+import {isNullOrUndefined} from 'utils/object.utils';
 
 const ANIMATION_LENGTH_MS = 500;
 const ICON_CHANGE_TIMEOUT_MS = 200;
 
 export interface IResetButtonProps {
+  iconOnly: boolean | undefined;
   currentValue?: any;
   onConfirm?: () => void;
 }
 
-const ResetButton: FC<IResetButtonProps> = ({currentValue, onConfirm}) => {
-  const isPristine = useRef<boolean>(true);
+const ResetButton = forwardRef<HTMLDivElement, IResetButtonProps>(
+  (
+    {iconOnly, currentValue, onConfirm},
+    ref /* I don't need this ref for now, but let it be */
+  ) => {
+    const isPristine = useRef<boolean>(true);
 
-  const [awaitingConfirmation, setAwaitingConfirmation] =
-    useState<boolean>(false);
+    const [awaitingConfirmation, setAwaitingConfirmation] =
+      useState<boolean>(false);
 
-  const [icon, setIcon] = useState<JSX.Element>(<UndoOutlined />);
+    const [icon, setIcon] = useState<JSX.Element>(<UndoOutlined />);
 
-  useEffect(() => {
-    if (awaitingConfirmation) {
-      setAwaitingConfirmation(false);
-    }
-  }, [currentValue]);
+    useEffect(() => {
+      if (awaitingConfirmation) {
+        setAwaitingConfirmation(false);
+      }
+    }, [currentValue]);
 
-  useEffect(() => {
-    if (isPristine.current) {
-      return undefined;
-    }
-    const timer = setTimeout(() => {
-      setIcon(awaitingConfirmation ? <CloseOutlined /> : <UndoOutlined />);
-    }, ICON_CHANGE_TIMEOUT_MS);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [awaitingConfirmation]);
+    useEffect(() => {
+      if (isPristine.current) {
+        return undefined;
+      }
+      const timer = setTimeout(() => {
+        setIcon(awaitingConfirmation ? <CloseOutlined /> : <UndoOutlined />);
+      }, ICON_CHANGE_TIMEOUT_MS);
+      return () => {
+        clearTimeout(timer);
+      };
+    }, [awaitingConfirmation]);
 
-  const handleClick = useCallback(() => {
-    if (awaitingConfirmation) {
-      onConfirm?.();
-    } else {
-      setAwaitingConfirmation(true);
-    }
-    isPristine.current = false;
-  }, [awaitingConfirmation, onConfirm]);
+    const handleClick = useCallback(() => {
+      if (awaitingConfirmation) {
+        onConfirm?.();
+      } else {
+        setAwaitingConfirmation(true);
+      }
+      isPristine.current = false;
+    }, [awaitingConfirmation, onConfirm]);
 
-  return (
-    <Button
-      icon={icon}
-      onClick={handleClick}
-      type={awaitingConfirmation ? 'primary' : 'default'}
-      danger
-      {...(isPristine.current
-        ? null
-        : {$awaitingConfirmation: awaitingConfirmation})}>
-      Reset
-    </Button>
-  );
-};
+    return !isNullOrUndefined(iconOnly) ? (
+      <Button
+        icon={icon}
+        onClick={handleClick}
+        type={awaitingConfirmation ? 'primary' : 'default'}
+        danger
+        {...(isPristine.current
+          ? null
+          : {$awaitingConfirmation: awaitingConfirmation})}
+        ref={ref}>
+        {!iconOnly && 'Reset'}
+      </Button>
+    ) : null;
+  }
+);
 
 const rotate = keyframes`
   to {
