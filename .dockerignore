@@ -1,0 +1,33 @@
+# Versioning and metadata
+.git
+.gitignore
+
+# Dependencies
+node_modules
+
+# Dist directories
+build
+lib
+storybook-static
+
+# Environment variables (may contain sensitive data)
+.env
+
+# IDE-specific settings directories
+.idea
+.vscode
+
+# Files and directories not required for production
+.github
+.husky
+Dockerfile
+.dockerignore
+README.md
+.editorconfig
+.prettierrc
+.eslintrc
+.lintstagedrc
+.nvmrc
+.stylelintrc
+rollup.config.mjs
+babel.config.rollup.js
