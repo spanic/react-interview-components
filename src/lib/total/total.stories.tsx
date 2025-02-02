@@ -1,6 +1,9 @@
 import {Meta, StoryObj} from '@storybook/react';
 import Total from './total.component';
 
+// eslint-disable-next-line fp/no-mutation
+Total.displayName = 'Total';
+
 const meta: Meta<typeof Total> = {
   component: Total,
   title: 'Components/Total',
