@@ -13,8 +13,6 @@
   "dependencies": {
     "@ant-design/icons": "^5.2.5",
     "@react-hook/resize-observer": "^1.2.6",
-    "@storybook/preview-api": "^7.4.2",
-    "@storybook/react": "~7.4.0",
     "antd": "^5.23.2",
     "antd-style": "^3.7.1",
     "prop-types": "^15.8.1",
@@ -74,6 +72,8 @@
     "@storybook/addon-links": "^7.4.0",
     "@storybook/node-logger": "^7.4.0",
     "@storybook/react-vite": "^7.4.0",
+    "@storybook/preview-api": "^7.4.2",
+    "@storybook/react": "~7.4.0",
     "@svgr/rollup": "^8.1.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
