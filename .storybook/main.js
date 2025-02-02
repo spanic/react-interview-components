@@ -19,7 +19,6 @@ const config = {
         docs: false,
       },
     },
-    '@storybook/preset-create-react-app',
     {
       name: '@storybook/addon-docs',
       options: {
@@ -32,10 +31,19 @@ const config = {
     },
   ],
 
+  docs: {
+    autodocs: 'tag',
+    defaultName: 'Documentation',
+  },
+
   staticDirs: ['../public/assets'],
 
   framework: {
     name: '@storybook/react-vite',
+  },
+
+  typescript: {
+    reactDocgen: 'react-docgen-typescript',
   },
 
   features: {

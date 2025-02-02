@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "esnext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -17,7 +17,7 @@
     "baseUrl": "src",
     "outDir": "lib",
     "declarationDir": "lib/types",
-    "moduleResolution": "node16",
+    "moduleResolution": "node",
     "strictBindCallApply": true,
     "plugins": [{"name": "typescript-plugin-css-modules"}],
     "declaration": true

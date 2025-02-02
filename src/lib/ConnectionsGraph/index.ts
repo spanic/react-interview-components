@@ -1,1 +1,0 @@
-export {ConnectionsGraph} from './ConnectionsGraph';

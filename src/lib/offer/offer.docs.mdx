@@ -1,0 +1,20 @@
+import {Meta, ArgTypes, Canvas, Controls, Title, Subtitle} from '@storybook/blocks';
+import * as OfferStories from './offer.stories';
+
+<Meta of={OfferStories} />
+
+<Title>Offer</Title>
+
+## Props
+<ArgTypes of={OfferStories} />
+
+## Default
+<Canvas of={OfferStories.Default} sourceState="shown" />
+<Controls of={OfferStories.Default} />
+
+## Multiple
+<Canvas of={OfferStories.Multiple} />
+<Controls of={OfferStories.Multiple} />
+
+## No data
+<Canvas of={OfferStories.NoData} sourceState="shown" />
