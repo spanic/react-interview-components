@@ -14,12 +14,12 @@ const ANIMATION_LENGTH_MS = 500;
 const ICON_CHANGE_TIMEOUT_MS = 200;
 
 export interface IResetButtonProps {
-  iconOnly: boolean | undefined;
+  iconOnly?: boolean;
   currentValue?: any;
   onConfirm?: () => void;
 }
 
-const ResetButton = forwardRef<HTMLDivElement, IResetButtonProps>(
+const ResetButton = forwardRef<HTMLButtonElement, IResetButtonProps>(
   (
     {iconOnly, currentValue, onConfirm},
     ref /* I don't need this ref for now, but let it be */
@@ -98,6 +98,7 @@ const Button = styled(AntdButton)<{$awaitingConfirmation?: boolean}>`
 `;
 
 ResetButton.defaultProps = {
+  iconOnly: false,
   currentValue: undefined,
   onConfirm: undefined,
 };

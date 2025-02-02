@@ -13,6 +13,7 @@ import terser from '@rollup/plugin-terser';
 import typescript from '@rollup/plugin-typescript';
 import {dts} from 'rollup-plugin-dts';
 import del from 'rollup-plugin-delete';
+import url from '@rollup/plugin-url';
 
 const outputs = [
   {
@@ -46,6 +47,7 @@ const config = outputs.map(({file, format}) => ({
     exports: 'named',
   },
   plugins: [
+    url(),
     peerDepsExternal(),
     typescript({tsconfig: './tsconfig.json'}),
     includePaths({

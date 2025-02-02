@@ -1,3 +1,3 @@
-export {Total} from './Total';
-export {Offer} from './Offer';
-export {ConnectionsGraph} from './ConnectionsGraph';
+export {default as Total} from './total/total.component';
+export {Offer} from './offer';
+export {default as Header} from './header/header.component';

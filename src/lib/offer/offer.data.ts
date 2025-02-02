@@ -1,4 +1,4 @@
-const OfferDefaultData = {
+const offerData = {
   id: 'amazon_prime',
   title: 'Amazon Prime',
   description:
@@ -6,4 +6,4 @@ const OfferDefaultData = {
   price: 9.99,
 };
 
-export default OfferDefaultData;
+export default offerData;

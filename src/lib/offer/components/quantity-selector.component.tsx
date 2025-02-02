@@ -3,8 +3,8 @@ import {Button, InputNumber as AndtInputNumber, Space} from 'antd';
 import React, {FC, useCallback, useRef} from 'react';
 import {styled} from 'styled-components';
 import {isNullOrUndefined} from 'utils/object.utils';
-import useCompactMode from '../hooks/useCompactMode.hook';
-import {ResetButton} from './ResetButton';
+import useCompactMode from '../hooks/use-compact-mode.hook';
+import {ResetButton} from './reset-button.component';
 
 const MIN_WIDTH_PX = 260;
 
