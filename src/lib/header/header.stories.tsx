@@ -2,7 +2,6 @@ import {Meta, StoryObj} from '@storybook/react';
 import Header from './header.component';
 
 // 🚩Attention! Overriding displayName here is required to have proper component name in the Storybook sources panel
-// eslint-disable-next-line fp/no-mutation
 Header.displayName = 'Header';
 
 const meta: Meta<typeof Header> = {
@@ -14,6 +13,9 @@ const meta: Meta<typeof Header> = {
       action: 'onChange',
       description: 'Executed upon value changes',
     },
+  },
+  parameters: {
+    controls: {exclude: ['className']},
   },
 };
 

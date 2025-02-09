@@ -70,6 +70,9 @@
           },
           {
             "property": "current"
+          },
+          {
+            "property": "displayName"
           }
         ]
       }

@@ -6,7 +6,6 @@ import Offer, {IOfferProps} from './offer.component';
 import {isNullOrUndefined} from '../../utils/object.utils';
 import offerData from './offer.data';
 
-// eslint-disable-next-line fp/no-mutation
 Offer.displayName = 'Offer';
 
 const meta: Meta<typeof Offer> = {

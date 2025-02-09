@@ -45,7 +45,6 @@ Total.defaultProps = {
 };
 
 // 🚩 Attention! Setting displayName manually is a workaround that forces proper type inference for Storybook Controls & Args blocks
-// eslint-disable-next-line fp/no-mutation
 Total.displayName = 'Total';
 
 export default memo(Total) as typeof Total;

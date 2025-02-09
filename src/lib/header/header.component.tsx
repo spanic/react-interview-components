@@ -17,9 +17,7 @@ export interface HeaderProps {
 const useStyles = createStyles(({token, responsive}) => ({
   header: {
     display: 'flex',
-    position: 'sticky',
     padding: `0 ${token.paddingLG}px`,
-    top: 0,
   },
   logo: {
     display: 'flex',
@@ -62,7 +60,6 @@ HeaderComponent.defaultProps = {
 };
 
 // 🚩 Attention! Setting displayName manually is a workaround that forces proper type inference for Storybook Controls & Args blocks
-// eslint-disable-next-line fp/no-mutation
 HeaderComponent.displayName = 'HeaderComponent';
 
 export default memo(HeaderComponent) as typeof HeaderComponent;

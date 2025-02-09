@@ -80,7 +80,6 @@ const Price = styled(Text)`
 /**
  * Need to set the displayName explicitly to show it properly in the "Source" panel of Canvas
  */
-// eslint-disable-next-line fp/no-mutation
 Offer.displayName = 'Offer';
 
 Offer.defaultProps = {
