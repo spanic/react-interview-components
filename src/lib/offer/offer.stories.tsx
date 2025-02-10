@@ -5,6 +5,7 @@ import {useArgs, useCallback, useEffect, useRef} from '@storybook/preview-api';
 import Offer, {IOfferProps} from './offer.component';
 import {isNullOrUndefined} from '../../utils/object.utils';
 import offerData from './offer.data';
+import {action} from '@storybook/addon-actions';
 
 Offer.displayName = 'Offer';
 
@@ -65,6 +66,7 @@ const OfferRenderFn: StoryFn<IOfferProps> = args => {
 
   const onChangeQty = useCallback((qty: number) => {
     updateArgs({selectedQty: qty});
+    action('onChangeQty')(qty);
   }, []);
 
   return (

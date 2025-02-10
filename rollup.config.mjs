@@ -47,7 +47,7 @@ const config = outputs.map(({file, format}) => ({
     exports: 'named',
   },
   plugins: [
-    url(),
+    url({limit: 1048576}),
     peerDepsExternal(),
     typescript({tsconfig: './tsconfig.json'}),
     includePaths({

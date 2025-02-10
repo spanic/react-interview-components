@@ -11,7 +11,7 @@ const meta: Meta<typeof Header> = {
   argTypes: {
     onChange: {
       action: 'onChange',
-      description: 'Executed upon value changes',
+      description: 'Executed when search field value changes',
     },
   },
   parameters: {

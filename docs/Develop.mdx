@@ -38,3 +38,22 @@ Development takes place inside `src` directory. There are two subdirectories ins
 |   └── index.js # entry point for rollup build
 └── setupTests.js
 ```
+
+## TypeScript
+
+Use the following TypeScript docgen configuration in `main.js` to show props with types from parent interfaces (based on https://github.com/storybookjs/storybook/issues/12129#issuecomment-1316875959):
+
+```js
+reactDocgenTypescriptOptions: {
+  tsconfigPath: '../tsconfig.json',
+  propFilter: prop => {
+    const res =
+      /antd/.test(prop.parent?.fileName) ||
+      !/node_modules/.test(prop.parent?.fileName);
+    return prop.parent ? res : true;
+  },
+  shouldExtractLiteralValuesFromEnum: true,
+  savePropValueAsString: true,
+  shouldRemoveUndefinedFromOptional: true,
+},
+```

@@ -101,12 +101,12 @@
   },
   "overrides": [
     {
-      "files": ["./*.js", "setupTests.js"],
+      "files": ["./*.js", "**/*.tsx", "setupTests.js"],
       "rules": {
         "import/no-extraneous-dependencies": [
           "error",
           {
-            "devDependencies": true,
+            "devDependencies": ["**/*.stories.tsx"],
             "optionalDependencies": false,
             "peerDependencies": false
           }
