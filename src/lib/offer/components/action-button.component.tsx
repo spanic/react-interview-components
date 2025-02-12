@@ -19,7 +19,6 @@ export const ActionButton: FC<IActionButtonProps> = ({
   onClick,
 }) => {
   const props: ButtonProps = {
-    shape: 'round',
     icon: type === ButtonType.ADD ? <PlusOutlined /> : <MinusOutlined />,
     onClick,
     children: type === ButtonType.ADD ? 'Add' : 'Remove',

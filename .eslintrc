@@ -16,7 +16,8 @@
     "react/function-component-definition": [
       2,
       {
-        "namedComponents": "arrow-function"
+        "namedComponents": "arrow-function",
+        "unnamedComponents": "arrow-function"
       }
     ],
     // Allow modules with named exports only.

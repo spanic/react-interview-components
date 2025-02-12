@@ -1,12 +1,13 @@
-import React, {FC, memo, useMemo} from 'react';
-import {Card, Skeleton, Space, Typography} from 'antd';
-import {styled} from 'styled-components';
+import React, {FC, memo} from 'react';
+import {Card, Divider, Typography} from 'antd';
 import {isNullOrUndefined} from 'utils/object.utils';
 import {withSkeleton} from 'utils/withSkeleton';
+import {createStyles} from 'antd-style';
+import {TagOutlined} from '@ant-design/icons';
 import {QuantitySelector} from './components/quantity-selector.component';
 import {ActionButton, ButtonType} from './components/action-button.component';
 
-const {Paragraph, Text} = Typography;
+const {Paragraph: AntdParagraph, Text: AntdText, Title: AntdTitle} = Typography;
 
 export interface IOfferProps {
   data: {
@@ -21,6 +22,15 @@ export interface IOfferProps {
   onChangeQty?: (qty: number) => void;
 }
 
+const useStyles = createStyles(({token}) => ({
+  title: {
+    marginBlockStart: 0,
+  },
+  price: {
+    fontSize: token.fontSizeXL,
+  },
+}));
+
 const Offer: FC<IOfferProps> = ({
   data,
   multiple,
@@ -28,32 +38,41 @@ const Offer: FC<IOfferProps> = ({
   selectedQty,
   onChangeQty,
 }) => {
+  const {styles} = useStyles();
+
   const {id, title, description, price} = data || {};
 
-  const DescriptionWithSkeleton = useMemo(
-    () =>
-      withSkeleton(Paragraph, isNullOrUndefined(description), {
-        title: false,
-        paragraph: {rows: 3},
-      }),
-    [description]
+  const Title = memo(
+    withSkeleton(AntdTitle, isNullOrUndefined(title), {
+      title: true,
+      paragraph: false,
+    })
   );
 
-  const PriceWithSkeleton = useMemo(
-    () =>
-      withSkeleton(Price, isNullOrUndefined(price), {
-        title: false,
-        paragraph: {rows: 1, width: 100},
-        style: {marginLeft: 20},
-      }),
-    [price]
+  const Description = memo(
+    withSkeleton(AntdParagraph, isNullOrUndefined(description), {
+      title: false,
+      paragraph: {rows: 2},
+    })
+  );
+
+  const Price = memo(
+    withSkeleton(AntdText, isNullOrUndefined(price), {
+      title: false,
+      paragraph: {rows: 1, width: 100},
+    })
   );
 
   return (
-    <Card
-      title={title || <Skeleton title paragraph={false} />}
-      extra={<PriceWithSkeleton>{`${price}$ / month`}</PriceWithSkeleton>}>
-      <DescriptionWithSkeleton>{description}</DescriptionWithSkeleton>
+    <Card>
+      <Title level={3} className={styles.title}>
+        {title}
+      </Title>
+      <Description>{description}</Description>
+      <TagOutlined className={styles.price} />
+      &nbsp;
+      <Price className={styles.price} italic>{`$${price}`}</Price>
+      <Divider />
       {multiple && selectedQty ? (
         <QuantitySelector
           qty={selectedQty}
@@ -61,21 +80,15 @@ const Offer: FC<IOfferProps> = ({
           onChange={qty => onChangeQty?.(qty)}
         />
       ) : (
-        <Space direction="vertical" align="end" style={{display: 'flex'}}>
-          <ActionButton
-            type={!multiple && selectedQty ? ButtonType.REMOVE : ButtonType.ADD}
-            disabled={isNullOrUndefined(id) || maxQty === 0}
-            onClick={() => onChangeQty?.(!multiple && selectedQty ? 0 : 1)}
-          />
-        </Space>
+        <ActionButton
+          type={!multiple && selectedQty ? ButtonType.REMOVE : ButtonType.ADD}
+          disabled={isNullOrUndefined(id) || maxQty === 0}
+          onClick={() => onChangeQty?.(!multiple && selectedQty ? 0 : 1)}
+        />
       )}
     </Card>
   );
 };
-
-const Price = styled(Text)`
-  margin-left: 16px;
-`;
 
 /**
  * Need to set the displayName explicitly to show it properly in the "Source" panel of Canvas

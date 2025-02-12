@@ -1,6 +1,6 @@
 import {MinusOutlined, PlusOutlined} from '@ant-design/icons';
 import {Button, InputNumber as AndtInputNumber, Space} from 'antd';
-import React, {FC, useCallback, useRef} from 'react';
+import React, {ComponentProps, FC, useCallback, useRef} from 'react';
 import {styled} from 'styled-components';
 import {isNullOrUndefined} from 'utils/object.utils';
 import useCompactMode from '../hooks/use-compact-mode.hook';
@@ -12,12 +12,14 @@ export interface IQuantitySelectorProps {
   qty: number;
   maxQty: number;
   onChange: (value: number) => void;
+  rootProps?: ComponentProps<typeof Container>;
 }
 
 export const QuantitySelector: FC<IQuantitySelectorProps> = ({
   qty,
   maxQty,
   onChange,
+  rootProps,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -41,7 +43,7 @@ export const QuantitySelector: FC<IQuantitySelectorProps> = ({
   }, [onChange]);
 
   return (
-    <Container ref={containerRef}>
+    <Container ref={containerRef} {...rootProps}>
       <ResetButton
         iconOnly={useCompactMode(containerRef, MIN_WIDTH_PX)}
         onConfirm={() => onChange(0)}
@@ -94,3 +96,7 @@ const InputNumber = styled(AndtInputNumber)`
     }
   }
 `;
+
+QuantitySelector.defaultProps = {
+  rootProps: undefined,
+};
