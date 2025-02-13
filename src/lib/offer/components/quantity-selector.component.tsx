@@ -1,8 +1,9 @@
 import {MinusOutlined, PlusOutlined} from '@ant-design/icons';
-import {Button, InputNumber as AndtInputNumber, Space} from 'antd';
-import React, {ComponentProps, FC, useCallback, useRef} from 'react';
+import {Button, InputNumber as AntdInputNumber, Space} from 'antd';
+import React, {FC, useCallback, useRef} from 'react';
 import {styled} from 'styled-components';
 import {isNullOrUndefined} from 'utils/object.utils';
+import {SizeType} from 'antd/lib/config-provider/SizeContext';
 import useCompactMode from '../hooks/use-compact-mode.hook';
 import {ResetButton} from './reset-button.component';
 
@@ -12,14 +13,14 @@ export interface IQuantitySelectorProps {
   qty: number;
   maxQty: number;
   onChange: (value: number) => void;
-  rootProps?: ComponentProps<typeof Container>;
+  size?: SizeType;
 }
 
 export const QuantitySelector: FC<IQuantitySelectorProps> = ({
   qty,
   maxQty,
   onChange,
-  rootProps,
+  size,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -43,8 +44,9 @@ export const QuantitySelector: FC<IQuantitySelectorProps> = ({
   }, [onChange]);
 
   return (
-    <Container ref={containerRef} {...rootProps}>
+    <Container ref={containerRef}>
       <ResetButton
+        size={size}
         iconOnly={useCompactMode(containerRef, MIN_WIDTH_PX)}
         onConfirm={() => onChange(0)}
         currentValue={qty}
@@ -52,6 +54,7 @@ export const QuantitySelector: FC<IQuantitySelectorProps> = ({
 
       <Space.Compact>
         <Button
+          size={size}
           icon={<MinusOutlined />}
           onClick={() => onChange(qty - 1)}
           disabled={qty === 0}
@@ -61,10 +64,12 @@ export const QuantitySelector: FC<IQuantitySelectorProps> = ({
           min={0}
           max={maxQty}
           controls={false}
+          size={size}
           onChange={onChangeManually}
           onBlur={onInputNumberBlur}
         />
         <Button
+          size={size}
           icon={<PlusOutlined />}
           onClick={() => onChange(qty + 1)}
           disabled={qty >= maxQty}
@@ -83,7 +88,7 @@ const Container = styled.div`
   }
 `;
 
-const InputNumber = styled(AndtInputNumber)`
+const InputNumber = styled(AntdInputNumber)`
   &.ant-input-number-compact-item {
     width: 4rem;
 
@@ -98,5 +103,5 @@ const InputNumber = styled(AndtInputNumber)`
 `;
 
 QuantitySelector.defaultProps = {
-  rootProps: undefined,
+  size: 'middle',
 };

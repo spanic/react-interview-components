@@ -1,13 +1,14 @@
 import React, {FC, memo} from 'react';
-import {Card, Divider, Typography} from 'antd';
+import {Card, Divider, Grid, Typography} from 'antd';
 import {isNullOrUndefined} from 'utils/object.utils';
 import {withSkeleton} from 'utils/withSkeleton';
 import {createStyles} from 'antd-style';
 import {TagOutlined} from '@ant-design/icons';
 import {QuantitySelector} from './components/quantity-selector.component';
-import {ActionButton, ButtonType} from './components/action-button.component';
+import {ActionButton, ActionType} from './components/action-button.component';
 
 const {Paragraph: AntdParagraph, Text: AntdText, Title: AntdTitle} = Typography;
+const {useBreakpoint} = Grid;
 
 export interface IOfferProps {
   data: {
@@ -39,6 +40,7 @@ const Offer: FC<IOfferProps> = ({
   onChangeQty,
 }) => {
   const {styles} = useStyles();
+  const screens = useBreakpoint();
 
   const {id, title, description, price} = data || {};
 
@@ -78,10 +80,16 @@ const Offer: FC<IOfferProps> = ({
           qty={selectedQty}
           maxQty={maxQty!}
           onChange={qty => onChangeQty?.(qty)}
+          size="large"
         />
       ) : (
         <ActionButton
-          type={!multiple && selectedQty ? ButtonType.REMOVE : ButtonType.ADD}
+          actionType={
+            !multiple && selectedQty ? ActionType.REMOVE : ActionType.ADD
+          }
+          type="primary"
+          size="large"
+          block={!screens.md}
           disabled={isNullOrUndefined(id) || maxQty === 0}
           onClick={() => onChangeQty?.(!multiple && selectedQty ? 0 : 1)}
         />

@@ -1,4 +1,5 @@
 import React, {
+  ComponentProps,
   forwardRef,
   useCallback,
   useEffect,
@@ -13,7 +14,7 @@ import {isNullOrUndefined} from 'utils/object.utils';
 const ANIMATION_LENGTH_MS = 500;
 const ICON_CHANGE_TIMEOUT_MS = 200;
 
-export interface IResetButtonProps {
+export interface IResetButtonProps extends ComponentProps<typeof AntdButton> {
   iconOnly?: boolean;
   currentValue?: any;
   onConfirm?: () => void;
@@ -21,7 +22,7 @@ export interface IResetButtonProps {
 
 const ResetButton = forwardRef<HTMLButtonElement, IResetButtonProps>(
   (
-    {iconOnly, currentValue, onConfirm},
+    {iconOnly, currentValue, onConfirm, ...buttonProps},
     ref /* I don't need this ref for now, but let it be */
   ) => {
     const isPristine = useRef<boolean>(true);
@@ -67,7 +68,8 @@ const ResetButton = forwardRef<HTMLButtonElement, IResetButtonProps>(
         {...(isPristine.current
           ? null
           : {$awaitingConfirmation: awaitingConfirmation})}
-        ref={ref}>
+        ref={ref}
+        {...buttonProps}>
         {!iconOnly && 'Reset'}
       </Button>
     ) : null;

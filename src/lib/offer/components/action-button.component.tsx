@@ -1,35 +1,24 @@
 import React, {FC} from 'react';
-import {MinusOutlined, PlusOutlined} from '@ant-design/icons';
+import {DeleteOutlined, PlusOutlined} from '@ant-design/icons';
 import {Button, ButtonProps} from 'antd';
 
-export interface IActionButtonProps {
-  type: ButtonType;
-  disabled?: boolean;
-  onClick?: () => void;
-}
-
-export enum ButtonType {
+export enum ActionType {
   ADD,
   REMOVE,
 }
 
+export interface IActionButtonProps extends ButtonProps {
+  actionType: ActionType;
+}
+
 export const ActionButton: FC<IActionButtonProps> = ({
-  type,
-  disabled,
-  onClick,
+  actionType,
+  ...buttonProps
 }) => {
   const props: ButtonProps = {
-    icon: type === ButtonType.ADD ? <PlusOutlined /> : <MinusOutlined />,
-    onClick,
-    children: type === ButtonType.ADD ? 'Add' : 'Remove',
-    disabled,
-    ...(type === ButtonType.ADD && {type: 'primary'}),
-    ...(type === ButtonType.REMOVE && {danger: true}),
+    icon: actionType === ActionType.ADD ? <PlusOutlined /> : <DeleteOutlined />,
+    children: actionType === ActionType.ADD ? 'Add' : 'Remove',
+    ...(actionType === ActionType.REMOVE && {danger: true}),
   };
-  return <Button {...props} />;
-};
-
-ActionButton.defaultProps = {
-  disabled: false,
-  onClick: undefined,
+  return <Button {...props} {...buttonProps} />;
 };
