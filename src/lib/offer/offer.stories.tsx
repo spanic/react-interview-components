@@ -24,9 +24,6 @@ const meta: Meta<typeof Offer> = {
     data: {
       description: 'Offer data',
     },
-    multiple: {
-      description: "Controls whether user can add 2+ Offer's instances or not",
-    },
     maxQty: {
       description:
         "Maximum number of Offer's instances that user can add. Works only when `multiple == true`",
@@ -106,7 +103,7 @@ export const Multiple: StoryObj<typeof Offer> = {
       imageUrl: new URL('./assets/offer-image-2.jpg', import.meta.url).href,
       price: 23.5,
     },
-    multiple: true,
+    maxQty: 10,
     selectedQty: 3,
   },
   render: OfferRenderFn,

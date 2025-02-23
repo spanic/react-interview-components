@@ -20,7 +20,6 @@ export interface IOfferProps {
     price?: number;
     imageUrl?: string;
   };
-  multiple?: boolean;
   maxQty?: number;
   selectedQty?: number;
   onChangeQty?: (qty: number) => void;
@@ -90,8 +89,7 @@ const Price = memo(({children, ...props}: PropsWithChildren<TextProps>) => {
 
 const Offer: FC<IOfferProps> = ({
   data,
-  multiple,
-  maxQty,
+  maxQty = 1,
   selectedQty,
   onChangeQty,
 }) => {
@@ -99,6 +97,7 @@ const Offer: FC<IOfferProps> = ({
   const screens = useBreakpoint();
 
   const {id, title, description, price, imageUrl} = data || {};
+  const multiple = maxQty > 1;
 
   return (
     <Card>
@@ -138,8 +137,7 @@ const Offer: FC<IOfferProps> = ({
 Offer.displayName = 'Offer';
 
 Offer.defaultProps = {
-  multiple: false,
-  maxQty: 10,
+  maxQty: 1,
   selectedQty: undefined,
   onChangeQty: undefined,
 };
