@@ -3,6 +3,7 @@ name: 'Build Storybook & push to Cloud.ru Artifact Registry'
 on:
   push:
     branches: ['master']
+    tags:
   pull_request:
     branches: ['master']
   workflow_dispatch:
