@@ -17,7 +17,7 @@ export const ActionButton: FC<IActionButtonProps> = ({
 }) => {
   const props: ButtonProps = {
     icon: actionType === ActionType.ADD ? <PlusOutlined /> : <DeleteOutlined />,
-    children: actionType === ActionType.ADD ? 'Add' : 'Remove',
+    children: actionType === ActionType.ADD ? 'Add to cart' : 'Remove',
     ...(actionType === ActionType.REMOVE && {danger: true}),
   };
   return <Button {...props} {...buttonProps} />;
