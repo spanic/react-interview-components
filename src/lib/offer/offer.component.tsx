@@ -1,5 +1,11 @@
-import React, {FC, ImgHTMLAttributes, memo, PropsWithChildren} from 'react';
-import {Card, Divider, Flex, Grid, Skeleton, Typography} from 'antd';
+import React, {
+  FC,
+  ImgHTMLAttributes,
+  memo,
+  PropsWithChildren,
+  useRef,
+} from 'react';
+import {Card, Divider, Flex, Skeleton, Typography} from 'antd';
 import {isNullOrUndefined} from 'utils/object.utils';
 import {createStyles} from 'antd-style';
 import {TagOutlined} from '@ant-design/icons';
@@ -8,9 +14,9 @@ import {ParagraphProps} from 'antd/lib/typography/Paragraph';
 import {TextProps} from 'antd/lib/typography/Text';
 import {QuantitySelector} from './components/quantity-selector.component';
 import {ActionButton, ActionType} from './components/action-button.component';
+import useCompactMode from './hooks/use-compact-mode.hook';
 
 const {Paragraph: AntdParagraph, Text: AntdText, Title: AntdTitle} = Typography;
-const {useBreakpoint} = Grid;
 
 export interface IOfferProps {
   data: {
@@ -94,7 +100,8 @@ const Offer: FC<IOfferProps> = ({
   onChangeQty,
 }) => {
   const {styles} = useStyles();
-  const screens = useBreakpoint();
+  const buttonContainerRef = useRef<HTMLDivElement>(null);
+  const isCompactMode = useCompactMode(buttonContainerRef, 260);
 
   const {id, title, description, price, imageUrl} = data || {};
   const multiple = maxQty > 1;
@@ -114,14 +121,14 @@ const Offer: FC<IOfferProps> = ({
           size="large"
         />
       ) : (
-        <Flex justify="flex-end">
+        <Flex ref={buttonContainerRef} justify="flex-end">
           <ActionButton
             actionType={
               !multiple && selectedQty ? ActionType.REMOVE : ActionType.ADD
             }
             type="primary"
             size="large"
-            block={!screens.md}
+            block={isCompactMode}
             disabled={isNullOrUndefined(id) || maxQty === 0}
             onClick={() => onChangeQty?.(!multiple && selectedQty ? 0 : 1)}
           />
