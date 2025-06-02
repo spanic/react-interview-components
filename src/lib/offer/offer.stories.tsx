@@ -1,6 +1,8 @@
 import React from 'react';
-import {Col, Row} from 'antd';
 import type {Meta, StoryFn, StoryObj} from '@storybook/react';
+import { theme } from 'antd';
+import { ResponsivePreviewDecorator } from '../../../decorators/ResponsivePreviewDecorator';
+import { getDynamicDimensions, SingleDimension } from '../../../utils/dimensions';
 import {useArgs, useCallback, useEffect, useRef} from '@storybook/preview-api';
 import {action} from '@storybook/addon-actions';
 import Offer, {IOfferProps} from './offer.component';
@@ -12,13 +14,32 @@ const meta: Meta<typeof Offer> = {
   component: Offer,
   title: 'Components/Offer',
   decorators: [
-    Story => (
-      <Row>
-        <Col xs={24} md={12} lg={8}>
+    (Story, context) => {
+      const currentToken = theme.getDesignToken(); // Gets the default Ant Design tokens
+      const allDimensions = getDynamicDimensions(currentToken);
+
+      // Directly define the array for display and for the check
+      const dimensionsForPreview: SingleDimension[] = [
+        allDimensions.XS,
+        allDimensions.MD,
+        allDimensions.LG,
+      ];
+
+      // Check if all selected dimensions are valid (primarily checks if XS, MD, LG keys existed in allDimensions)
+      if (!dimensionsForPreview[0] || !dimensionsForPreview[1] || !dimensionsForPreview[2]) {
+        console.error(
+          'Error resolving one or more dynamic dimensions (XS, MD, LG) for Storybook decorator. Rendering story without decorator.',
+          allDimensions,
+        );
+        return <Story />;
+      }
+      
+      return (
+        <ResponsivePreviewDecorator displayDimensions={dimensionsForPreview}>
           <Story />
-        </Col>
-      </Row>
-    ),
+        </ResponsivePreviewDecorator>
+      );
+    },
   ],
   argTypes: {
     data: {
